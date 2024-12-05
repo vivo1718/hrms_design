@@ -1,13 +1,14 @@
 .bg-success {
-    background-color: #0d2b14; /* Dark green */
+    background-color: #081b0d ; /* Dark green */
     color: white;
     font-family: "Poppins", sans-serif;
-    width: 180px;
+    width: 210px;
     margin-top: 0 !important;
     height: 100vh;
     padding-top: 30px !important;
     position: fixed;
     padding: 20px;
+    margin-right: 20px;
   }
   
   .text-title  {
@@ -27,19 +28,18 @@
   .title_setl{
     height: 60px;
     display: flex;
-    margin-right: 5px;
+    margin-right: 3px;
     justify-content: center;
     align-items: center;
     width: 60px;
+    margin-bottom: 5px !important;
     border-radius: 20px;
-    background: linear-gradient(135deg, #d1b7ee, #59b026);
   }
   
   .text-white a {
     color: white;
     text-decoration: none;
     font-family: "Poppins", sans-serif;
-
     font-size: 0.9rem;
     margin: 1rem 0;
     display: flex;
@@ -54,5 +54,6 @@
     background-color: #eeecea60; /* Lighter green */
     color:rgb(237, 157, 9);
     font-family: "Poppins", sans-serif;
+    font-weight: bold;
 
   }

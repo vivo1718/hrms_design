@@ -1,0 +1,79 @@
+.login_dash{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    background-color: #e6fcef;
+    background-image: url('../assets/manage2.jpg');
+    padding-top: 20px;
+    background-size: cover;
+  animation: backgroundShift 30s infinite alternate;
+    height: 100vh;
+}
+@keyframes backgroundShift {
+    0% {
+      background-position: left top;
+    }
+    100% {
+      background-position: right bottom;
+    }
+  }
+.card_login{
+    height: 30rem !important;
+    width:22rem;
+    font-size: small;
+    padding: 20px;
+}
+.log_button{
+    background-color: rgb(242, 157, 0) !important;
+    border-color:rgba(242, 157, 0) !important;
+    font-size: small !important;
+    font-family: "Poppins", sans-serif !important;
+
+}
+.log_otp{
+    background-color: green !important;
+    border-color:green !important;
+    font-size: small !important;
+    font-family: "Poppins", sans-serif !important;
+
+
+
+}
+
+.or1{
+    justify-content: end;
+    display: flex;
+    font-family: "Poppins", sans-serif ;
+
+    margin-top: 5px;
+    font-weight: 500;
+    align-items: end;
+}
+.card_t{
+    align-items: center;
+    font-family: "Poppins", sans-serif ;
+    justify-content: center;
+    font-weight: bolder;
+    display: flex;
+}
+.or{
+    justify-content: center;
+    display: flex;
+    font-family: "Poppins", sans-serif ;
+    margin-top: 5px;
+    font-weight: 500;
+    align-items: center;
+}
+
+.title{
+    font-family: "Poppins", sans-serif !important;
+    font-size: small !important;
+    color: #fff;
+}
+.title2{
+    font-family: "Poppins", sans-serif !important;
+    font-size: small !important;
+    color: #000;
+}

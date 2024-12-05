@@ -11,18 +11,22 @@ import Login from './pages/Login';
 import './App.css';
 
 function App() {
+
+    
     return (
         <Router>
             <div className="d-flex">
                 <Sidebar2 />
                 <div className="container">
                     <Routes>
+                    <Route path="/" element={<Login />} />
+                        <Route path="/login" element={<Login />}/>
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/employees" element={<Employees />} />
                         <Route path="/departments" element={<Departments />} />
                         <Route path="/attendance" element={<Attendance />} />
                         <Route path="/leaves" element={<Leaves />} />
-                        <Route path="/login" element={<Login />} />
+                         
                     </Routes>
                 </div>
             </div>

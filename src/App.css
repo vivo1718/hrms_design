@@ -4,7 +4,7 @@
   height: 100vh;
 }
 .container{
-  margin-left: 260px;
+  margin-left: 200px !important;
   margin-top: 0 !important;
 
 }
