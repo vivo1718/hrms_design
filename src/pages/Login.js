@@ -40,14 +40,17 @@ function Login() {
     setError(""); // Clear previous errors
     setSuccess("");
      // Clear previous success messages
-     if (password !== confirmPassword) {
+     
+     if (password != confirmPassword) {
       toast.error("Passwords do not match!", { position: "top-right" });
       return;
     }
-
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       setSuccess("Registration successful!");
+      toast.warning("Registered Successfully.", {
+        position: "top-right",
+      });
       window.location.href="/Dashboard"
     } catch (err) {
       if (err.code === "auth/email-already-in-use") {
@@ -63,10 +66,7 @@ function Login() {
   };
   const handleLogin = async (e) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      toast.error("Passwords do not match!", { position: "top-right" });
-      return;
-    }
+    
     try {
       await signInWithEmailAndPassword(auth, email, password);
       window.location.href="/Dashboard";
@@ -115,11 +115,11 @@ function Login() {
 </FloatingLabel>
 <br></br>
 {!isLoginMode && (<FloatingLabel controlId="floatingPassword" label="Confirm password">
- <Form.Control type="password" placeholder="Confirm password" />
+ <Form.Control type="password" placeholder="Confirm password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
 </FloatingLabel>)}</Form>
 <ToastContainer/>
 <div className="or1"><p onClick={toggleFormMode} >{isLoginMode ? 'Dont have an account signup?':'Already have an account?' }</p></div>
-<Button className='log_button' size='lg' onClick={handleRegister , handleLogin}>{isLoginMode ? 'Login' : 'Sign Up'}</Button>
+<Button className='log_button' size='lg' onClick={isLoginMode? handleLogin:handleRegister }>{isLoginMode ? 'Login' : 'Sign Up'}</Button>
 <div className="or"><p>Or</p></div>
 <Button  className='log_otp' size='lg' onClick={googleLogin} >Sign in with Google</Button>
 
