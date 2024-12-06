@@ -1,9 +1,8 @@
-.bg-success {
-    background-color: #081b0d ; /* Dark green */
+.bg {
+    background-color: #132d19 !important; /* Dark green */
     color: white;
     font-family: "Poppins", sans-serif;
-    width: 210px;
-    margin-top: 0 !important;
+    width: 15rem;
     height: 100vh;
     padding-top: 30px !important;
     position: fixed;
@@ -42,6 +41,7 @@
     font-family: "Poppins", sans-serif;
     font-size: 0.9rem;
     margin: 1rem 0;
+    margin-bottom: 5px;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -56,4 +56,9 @@
     font-family: "Poppins", sans-serif;
     font-weight: bold;
 
+
+  }
+  .text-whit.active{
+    background-color: #FF8042;
+    color:#fff;
   }

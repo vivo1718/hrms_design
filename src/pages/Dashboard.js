@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import {Card, Button, Row, Col} from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome, faUsers, faCog, faEnvelope, faClipboardUser } from "@fortawesome/free-solid-svg-icons";
+import { faHome, faUsers, faCog, faEnvelope, faClipboardUser, faPersonWalking, faUserPen, faUserPlus, faPersonSnowboarding } from "@fortawesome/free-solid-svg-icons";
 import Stack from 'react-bootstrap/Stack';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import './Dashboard.css';
 import {PieChart, Pie, Cell} from "recharts"
+import { auth } from '../components/firebase';
 import { faNfcDirectional } from '@fortawesome/free-brands-svg-icons';
 import image from '../assets/man.jpg';
+import { toast } from 'react-toastify';
+import imageName from '../assets/outdoor.png';
+
 function Dashboard() {
   const data = [
     { day: "Monday", Attendance: 25 },
@@ -22,22 +26,49 @@ function Dashboard() {
     { name: "Female", value: 30 },
   ];
   const COLORS = ["#000", "#FF8042"];
+  //firebase user loginin details after successfully logged in
+  const [userDetails, setUserDetails] = useState(null);
+  const fetchUserData = async()=>{
+    auth.onAuthStateChanged(async(user)=>{
+      console.log(user);
+      setUserDetails(user);
+    });
+  };
+  useEffect(()=>{
+   fetchUserData();
+  },[]);
+  async function handleLoggedOut(){
+   try{
+    await auth.signOut();
+    window.location.href= './Login';
+    console.log("Logged out successfully");
+    toast.success("Logged out successfully");
+   } catch(error){
+    console.log("Error logging out".error.message);
+   }
+  }
 
   return(
   <div className="dashboard-container">
   {/* Sidebar Placeholder */}
   {/* Main Content */}
 
-  <div className='dash_row'>
+   {
+    userDetails ? (
+      <>
+      <div className='dash_row'>
+  <div className='r1'>
   <div className="icon">
   </div>
-  <div className='text'><p>Welcome to the dashboard, David</p>
+  <div className='text'>Welcome to the dashboard, {userDetails.displayName}
   <p className='sub'>Lets manage your employees in one place</p>
   </div>
+  </div>
+  <div style={{display:'flex', justifyContent:'center',alignItems:'center'}}><Button onClick={handleLoggedOut} variant='warning'>Log out</Button></div>
   
 </div>
 <Row className='row_parent ' >
-  <Col className='row_parent '>
+  <Col >
   <Col style={{marginLeft:'10px',marginRight:'10px', marginBottom:'10px'}}>
   <Row>
   <Card className='dash_card '>
@@ -51,9 +82,9 @@ function Dashboard() {
   <Col style={{marginLeft:'10px',marginRight:'10px', marginBottom:'10px'}}>
   <Row>
   <Card className='dash_card'>
-    <div className='icon_bar'><FontAwesomeIcon icon={faUsers} className="icon_back"></FontAwesomeIcon></div>
+    <div className='icon_bar'><FontAwesomeIcon icon={faUserPlus} className="icon_back"></FontAwesomeIcon></div>
     <p className='emp'>1232</p>
-    <Card.Title className='card_title'>Total Employees</Card.Title>
+    <Card.Title className='card_title'> Employess Added</Card.Title>
   </Card>
  
   </Row>
@@ -62,9 +93,9 @@ function Dashboard() {
   <Col style={{marginLeft:'10px',marginRight:'10px', marginBottom:'10px'}}>
   <Row>
   <Card className='dash_card'>
-    <div className='icon_bar'><FontAwesomeIcon icon={faUsers} className="icon_back"></FontAwesomeIcon></div>
+    <div className='icon_bar'><FontAwesomeIcon icon={faPersonWalking} className="icon_back"></FontAwesomeIcon></div>
     <p className='emp'>1232</p>
-    <Card.Title className='card_title'>Total Employees</Card.Title>
+    <Card.Title className='card_title'>Total Leaves</Card.Title>
   </Card>
  
   </Row>
@@ -72,9 +103,9 @@ function Dashboard() {
   <Col style={{marginLeft:'10px',marginRight:'10px', marginBottom:'10px'}}>
   <Row>
   <Card className='dash_card'>
-    <div className='icon_bar'><FontAwesomeIcon icon={faUsers} className="icon_back"></FontAwesomeIcon></div>
+    <div className='icon_bar'><FontAwesomeIcon icon={faPersonSnowboarding} className="icon_back"></FontAwesomeIcon></div>
     <p className='emp'>1232</p>
-    <Card.Title className='card_title'>Total Employees</Card.Title>
+    <Card.Title className='card_title'>Payroll</Card.Title>
   </Card>
  
   </Row>
@@ -155,9 +186,10 @@ function Dashboard() {
   </Col>
 </Row>
 <div style={{
-  margin:'10px',
+  marginTop:'10px',
+  backgroundColor:'#fff',
   paddingBottom:'10px'
-}}><h6 style={{fontWeight:'bold', marginTop:'10px', fontFamily: '"Poppins", sans-serif'}}>Top Performing Emplouees</h6>
+}}><h6 style={{fontWeight:'bold', marginTop:'10px',marginLeft:'10px', fontFamily: '"Poppins", sans-serif'}}>Top Performing Emplouees</h6>
 <Row style={{marginTop:'20px'}}>
   <Col className = "stars">
   <div  className ="emp1" style={{height:'5rem', width:'5rem', backgroundColor:'green', borderRadius:'2.5rem'}}></div>
@@ -186,6 +218,9 @@ function Dashboard() {
   </Col>
 </Row>
 </div>
+      </>
+    ):(<div className='loads'><img src={imageName} style={{height:'10rem',width:'10rem', marginBottom:'5px'}} ></img><p>Please Login to enter dashboard</p></div>)
+   }
 
   </div>
 

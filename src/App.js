@@ -19,13 +19,13 @@ function App() {
                 <Sidebar2 />
                 <div className="container">
                     <Routes>
-                    <Route path="/" element={<Login />} />
-                        <Route path="/login" element={<Login />}/>
-                        <Route path="/dashboard" element={<Dashboard />} />
-                        <Route path="/employees" element={<Employees />} />
-                        <Route path="/departments" element={<Departments />} />
-                        <Route path="/attendance" element={<Attendance />} />
-                        <Route path="/leaves" element={<Leaves />} />
+                    <Route path="/" element={<Login/>} />
+                        <Route path="/login" element={<Login/>}/>
+                        <Route path="/dashboard" element={<Dashboard/>} />
+                        <Route path="/employees" element={<Employees/>} />
+                        <Route path="/departments" element={<Departments/>} />
+                        <Route path="/attendance" element={<Attendance/>} />
+                        <Route path="/leaves" element={<Leaves/>} />
                          
                     </Routes>
                 </div>
