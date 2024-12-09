@@ -5,8 +5,9 @@ import './Login.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { GoogleAuthProvider, signInWithPopup , createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth';
-import { auth } from '../components/firebase';
+import { auth,db } from '../components/firebase';
 import 'react-toastify/dist/ReactToastify.css';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { toast, ToastContainer } from 'react-toastify';
 function Login() {
   const[login, setlogin] = useState(false);
@@ -14,7 +15,15 @@ function Login() {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth,provider).then(async(result)=>{
      console.log(result);
-     if(result.user){
+     const user = result.user;
+     if(user){
+      await setDoc(doc(db,"Users", user.uid),{
+        email: user.email,
+        firstName: user.displayName,
+        photo: user.photoURL,
+      }
+
+      );
       toast.success("user logged in successfully",{
         position:"top-center"
       });
@@ -34,36 +43,12 @@ function Login() {
   };
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    setError(""); // Clear previous errors
-    setSuccess("");
-     // Clear previous success messages
-     
-     if (password != confirmPassword) {
-      toast.error("Passwords do not match!", { position: "top-right" });
-      return;
-    }
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      setSuccess("Registration successful!");
-      toast.warning("Registered Successfully.", {
-        position: "top-right",
-      });
-      window.location.href="/Dashboard"
-    } catch (err) {
-      if (err.code === "auth/email-already-in-use") {
-        toast.warning("Email is already registered.", {
-          position: "top-right",
-        });
-      } else {
-        toast.error("An error occurred. Please try again.", {
-          position: "top-right",
-        });
-      }
-    }
-  };
+   
+   
+  const bac_reg = ()=>{
+    window.location.href= './register';
+  }
+  
   const handleLogin = async (e) => {
     e.preventDefault();
     
@@ -93,16 +78,13 @@ function Login() {
   return (
     <div className='login_dash'>
 
-        <p className=" title">Kindly Login or Sign up if you dont have an Account</p>
-        <p className=" title">Copyright reserved 2024</p>
-
-        <br></br>
-        { !login  ? (
-          <>
+      
+         
+          
           <Card className="card_login">
 
 <div className='card_t'> <p className=" title2">HR Manage</p> </div>
-<Form onSubmit={handleRegister}>
+<Form onSubmit={handleLogin}>
  <FloatingLabel
  controlId="floatingInput"       
  label="Email address"
@@ -114,20 +96,18 @@ function Login() {
  <Form.Control type="password" placeholder="Enter your password"  value={password} onChange={(e) => setPassword(e.target.value)} />
 </FloatingLabel>
 <br></br>
-{!isLoginMode && (<FloatingLabel controlId="floatingPassword" label="Confirm password">
- <Form.Control type="password" placeholder="Confirm password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-</FloatingLabel>)}</Form>
+</Form>
 <ToastContainer/>
-<div className="or1"><p onClick={toggleFormMode} >{isLoginMode ? 'Dont have an account signup?':'Already have an account?' }</p></div>
-<Button className='log_button' size='lg' onClick={isLoginMode? handleLogin:handleRegister }>{isLoginMode ? 'Login' : 'Sign Up'}</Button>
-<div className="or"><p>Or</p></div>
-<Button  className='log_otp' size='lg' onClick={googleLogin} >Sign in with Google</Button>
+<div className="or1"><p onClick={bac_reg} >Dont have an account?</p></div>
+<Button className='log_button' size='lg' onClick={handleLogin}>Login</Button>
+<p className="or">Or</p>
+<Button  className='log_otp1' size='lg' onClick={googleLogin} >Sign in with Google</Button>
 
-<Button className='log_otp' size='lg' >Login using OTP</Button>
+<Button className='log_otp2' size='lg' >Login using OTP</Button>
 
  </Card>
-          </>
-        ):(<div>You are  Logged In</div>)}
+          
+        
 
     </div>
   )

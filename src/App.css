@@ -1,13 +1,26 @@
 .App {
   text-align: center;
   background-color:#e2e2b6 ;
-  height: 100vh;
+  height: 100%;
+  margin: 0px !important;
 }
+
 .container{
-  margin-left: 14rem !important;
   margin-top: 0 !important;
+  height: max-content;
+  width: max-content;
+  margin-left: 14rem !important;
 
 
+}
+@media (max-width:768px){
+  .container{
+    margin-top: 0 !important;
+    margin-left: 0px !important;
+
+  
+  
+  }
 }
 
 

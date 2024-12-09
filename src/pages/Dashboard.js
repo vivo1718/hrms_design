@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
-import {Card, Button, Row, Col} from 'react-bootstrap';
+import {Card, Button, Row, Col, ProgressBar} from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faUsers, faCog, faEnvelope, faClipboardUser, faPersonWalking, faUserPen, faUserPlus, faPersonSnowboarding } from "@fortawesome/free-solid-svg-icons";
 import Stack from 'react-bootstrap/Stack';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import './Dashboard.css';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import {PieChart, Pie, Cell} from "recharts"
-import { auth } from '../components/firebase';
+import { auth, db } from '../components/firebase';
 import { faNfcDirectional } from '@fortawesome/free-brands-svg-icons';
-import image from '../assets/man.jpg';
+// import image from '../assets/man.jpg';
 import { toast } from 'react-toastify';
 import imageName from '../assets/outdoor.png';
 
@@ -31,7 +32,18 @@ function Dashboard() {
   const fetchUserData = async()=>{
     auth.onAuthStateChanged(async(user)=>{
       console.log(user);
-      setUserDetails(user);
+      // setUserDetails(user);
+      const docRef = doc(db,"Users", user.uid);
+      const docSnap = await getDoc(docRef);
+      if(docSnap.exists()){
+        setUserDetails(docSnap.data());
+        console.log("Datas Below");
+        console.log(docSnap.data());
+      }
+      else{
+
+        console.log("User not logged in");
+      }
     });
   };
   useEffect(()=>{
@@ -58,18 +70,19 @@ function Dashboard() {
       <>
       <div className='dash_row'>
   <div className='r1'>
-  <div className="icon">
+  <div className="icon"  >
+    <img height='100%' width='100%' src={userDetails.photo}></img>
   </div>
-  <div className='text'>Welcome to the dashboard, {userDetails.displayName}
+  <div className='text'>Welcome to the dashboard, {userDetails.firstName}
   <p className='sub'>Lets manage your employees in one place</p>
   </div>
   </div>
-  <div style={{display:'flex', justifyContent:'center',alignItems:'center'}}><Button onClick={handleLoggedOut} variant='warning'>Log out</Button></div>
+  <div style={{display:'flex', justifyContent:'center',alignItems:'center'}}><Button className="logout" onClick={handleLoggedOut} variant='warning'>Log out</Button></div>
   
 </div>
 <Row className='row_parent ' >
-  <Col >
-  <Col style={{marginLeft:'10px',marginRight:'10px', marginBottom:'10px'}}>
+  <Col sm={12}  lg={4}>
+  <Col  style={{marginLeft:'10px',marginRight:'10px', marginBottom:'10px'}}>
   <Row>
   <Card className='dash_card '>
     <div className='icon_bar'><FontAwesomeIcon icon={faUsers} className="icon_back"></FontAwesomeIcon></div>
@@ -111,7 +124,7 @@ function Dashboard() {
   </Row>
   </Col>
   </Col>
-  <Col>
+  <Col sm={12} lg={4}>
   <Card className='attend'>
     <Card.Subtitle className='stitle_attend'>Your Attendance</Card.Subtitle>
     <Card.Title className='title_attend'>02:15:10</Card.Title>
@@ -137,8 +150,8 @@ function Dashboard() {
   </Col>
   
 </Row>
-<Row>
-  <Col style={{backgroundColor:'white', marginLeft:'10px', marginTop:'10px'}}>
+<Row  >
+  <Col  sm={12} lg={5} style={{backgroundColor:'white', marginLeft:'10px',marginRight:'10px', marginTop:'10px', }}>
   <h6 style={{fontWeight:'bold', marginTop:'10px', fontFamily: '"Poppins", sans-serif'}}>Attendance Overview</h6>
   <ResponsiveContainer width="100%" height={400}>
       <BarChart
@@ -161,7 +174,7 @@ function Dashboard() {
       </BarChart>
     </ResponsiveContainer>
   </Col>
-  <Col style={{backgroundColor:'white', marginLeft:'15px', marginRight:'15px', marginTop:'10px'}}>
+  <Col sm={12} lg={5} style={{backgroundColor:'white', marginTop:'10px', marginLeft:'15px', marginRight:'15px'}}>
   <h6 style={{fontWeight:'bold', marginTop:'10px', fontFamily: '"Poppins", sans-serif'}}>Gender By Employees</h6>
   <ResponsiveContainer width="100%" height={400}>
       <PieChart>
@@ -191,27 +204,27 @@ function Dashboard() {
   paddingBottom:'10px'
 }}><h6 style={{fontWeight:'bold', marginTop:'10px',marginLeft:'10px', fontFamily: '"Poppins", sans-serif'}}>Top Performing Emplouees</h6>
 <Row style={{marginTop:'20px'}}>
-  <Col className = "stars">
+  <Col sm={6} lg={3} className = "stars">
   <div  className ="emp1" style={{height:'5rem', width:'5rem', backgroundColor:'green', borderRadius:'2.5rem'}}></div>
   <p style={{fontWeight:'bold', marginTop:'5px' }}>Jone ebar</p>
   <h6 style={{fontWeight:'bolder', marginTop:'-5px', color:'#FF8042'}}>80%</h6>
   </Col>
-  <Col className = "stars">  <div  className ="emp1" style={{height:'5rem', width:'5rem', backgroundColor:'green', borderRadius:'2.5rem'}}></div>
+  <Col sm={6} lg={3} className = "stars">  <div  className ="emp1" style={{height:'5rem', width:'5rem', backgroundColor:'green', borderRadius:'2.5rem'}}></div>
   <p style={{fontWeight:'bold', marginTop:'5px' }}>Jone ebar</p>
   <h6 style={{fontWeight:'bolder', marginTop:'-5px', color:'#FF8042'}}>80%</h6>
   
   </Col>
-  <Col className = "stars">  <div  className ="emp1" style={{height:'5rem', width:'5rem', backgroundColor:'green', borderRadius:'2.5rem'}}></div>
+  <Col sm={6} lg={3} className = "stars">  <div  className ="emp1" style={{height:'5rem', width:'5rem', backgroundColor:'green', borderRadius:'2.5rem'}}></div>
   <p style={{fontWeight:'bold', marginTop:'5px' }}>Jone ebar</p>
   <h6 style={{fontWeight:'bolder', marginTop:'-5px', color:'#FF8042'}}>80%</h6>
   
   </Col>
-  <Col className = "stars">  <div  className ="emp1" style={{height:'5rem', width:'5rem', backgroundColor:'green', borderRadius:'2.5rem'}}></div>
+  <Col  sm={6} lg={3} className = "stars">  <div  className ="emp1" style={{height:'5rem', width:'5rem', backgroundColor:'green', borderRadius:'2.5rem'}}></div>
   <p style={{fontWeight:'bold', marginTop:'5px' }}>Jone ebar</p>
   <h6 style={{fontWeight:'bolder', marginTop:'-5px', color:'#FF8042'}}>80%</h6>
   
   </Col>
-  <Col className = "stars">  <div  className ="emp1" style={{height:'5rem', width:'5rem', backgroundColor:'green', borderRadius:'2.5rem'}}></div>
+  <Col sm={6} lg={3} className = "stars">  <div  className ="emp1" style={{height:'5rem', width:'5rem', backgroundColor:'green', borderRadius:'2.5rem'}}></div>
   <p style={{fontWeight:'bold', marginTop:'5px' }}>Jone ebar</p>
   <h6 style={{fontWeight:'bolder', marginTop:'-5px', color:'#FF8042'}}>80%</h6>
   
@@ -219,7 +232,7 @@ function Dashboard() {
 </Row>
 </div>
       </>
-    ):(<div className='loads'><img src={imageName} style={{height:'10rem',width:'10rem', marginBottom:'5px'}} ></img><p>Please Login to enter dashboard</p></div>)
+    ):(<div className='loads'><ProgressBar animated now={45} /><p>Just a moment...</p></div>)
    }
 
   </div>
