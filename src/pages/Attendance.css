@@ -1,0 +1,17 @@
+.fontf{
+    font-size: 14px !important;
+    font-family: "Poppins", sans-serif ;
+    font-weight: bold;
+}
+.fontf1{
+    font-size: 12px !important;
+    font-family: "Poppins", sans-serif ;
+}
+.st{
+    background: #fff
+
+}
+.col_out:hover{
+    border-color: green;
+    border-width: 2px;
+}

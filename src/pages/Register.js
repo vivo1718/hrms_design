@@ -119,12 +119,13 @@ export default function Register() {
  <Form.Control type="password" placeholder="Enter your password"  value={password} onChange={(e) => setPassword(e.target.value)} />
 </FloatingLabel>
 <br></br>
-<Button className='reg_button' size='lg' type='submit' >Create Account</Button>
+<div className="or1" onClick={back_login}><p className='al' >Already have an account?</p></div>
+
+<div className='d-flex justify-content-center align-self-stretch' ><Button className='reg_button' size='lg' type='submit' style={{width:'100%'}} >Create Account</Button></div>
 
 </Form>
 
 <ToastContainer/>
-<div className="or1" onClick={back_login}><p className='al' >Already have an account?</p></div>
 {/* <Button  className='log_otp1' size='lg' onClick={googleLogin} >Sign in with Google</Button>
 
 <Button className='log_otp2' size='lg' >Login using OTP</Button> */}

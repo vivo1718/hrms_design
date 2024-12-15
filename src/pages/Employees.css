@@ -38,6 +38,10 @@
 
 
 }
+.col_out{
+    border-color: green;
+    border-width: 2px;
+}
 .view:hover{
     background-color: green!important;
     color: #fff !important;
@@ -58,8 +62,7 @@
     font-weight: 500 !important;
     font-size: 0.9rem !important;
 }
-.row1{
-}
+
 .row_class{
     display: flex;
     justify-content: space-around;
@@ -79,3 +82,4 @@
     font-size: smaller !important;
 
 }
+

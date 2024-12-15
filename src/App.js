@@ -13,6 +13,7 @@ import Register from './pages/Register';
 
 import './App.css';
 import FloatingButtonMenu from './components/FloatingButtonMenu';
+import LoginOtp from './pages/LoginOtp';
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
                     <Routes>
                     <Route path="/" element={<Login/>} />
                         <Route path="/login" element={<Login/>}/>
+                        <Route path="/login_with_otp" element={<LoginOtp/>}/>
                         <Route path="/register" element={<Register/>}/>
                         <Route path="/dashboard" element={<Dashboard/>} />
                         <Route path="/employees" element={<Employees/>} />

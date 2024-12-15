@@ -23,40 +23,40 @@
     width:22rem;
     font-size: small;
     margin-top: 5px !important;
+    box-shadow: 0 4px 6px rgba(1, 1, 0, 0.6); /* x-offset, y-offset, blur-radius, spread-radius, color */
     border: 2px solid transparent !important; /* Set the border thickness */
     border-image: linear-gradient(45deg, rgb(41, 231, 155), rgb(238, 38, 231)) 1 !important; /* Apply gradient to border */
 
     padding: 20px;
 }
 .log_button{
-    background-color: rgb(242, 157, 0) !important;
-    border-color:rgba(242, 157, 0) !important;
+    background-color: #FF8042  !important;
+    border-color:#FF8042  !important;
     font-size: small !important;
     font-family: "Poppins", sans-serif !important;
+    height:3rem !important;
+    font-weight: bold !important;
 
 }
-.log_otp1{
-    background-color: green !important;
-    border-color:green !important;
+
+
+.log_otp3{
+    background-color: transparent !important;
+    border-color: green !important;
+    border-width: 2px !important ;
+    color: green !important;
     font-size: small !important;
     font-family: "Poppins", sans-serif !important;
     margin-top: 3px !important;
-    font-weight: bold;
-
-
-
+    font-weight: bold !important;
 }
-.log_otp2{
-    background-color: green !important;
+.log_otp3:hover{
     border-color:green !important;
-    font-size: small !important;
-    font-family: "Poppins", sans-serif !important;
-    margin-top: 10px;
-    font-weight: bold;
-
-
-
+    color: #fff !important;
+    background-color: green !important;
+    
 }
+
 
 .or1{
     justify-content: end;
@@ -69,7 +69,7 @@
     align-items: end;
 }
 .or1:hover{
-    color:blue;
+    color:rgb(58, 58, 165);
     cursor: pointer;
 
     

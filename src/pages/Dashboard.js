@@ -6,55 +6,102 @@ import { faHome, faUsers, faCog, faEnvelope, faClipboardUser, faPersonWalking, f
 import Stack from 'react-bootstrap/Stack';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import './Dashboard.css';
+import { useNavigate } from "react-router-dom";
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import {PieChart, Pie, Cell} from "recharts"
 import { auth, db } from '../components/firebase';
+import { onAuthStateChanged , getAuth } from 'firebase/auth';
 import { faNfcDirectional } from '@fortawesome/free-brands-svg-icons';
 // import image from '../assets/man.jpg';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import imageName from '../assets/outdoor.png';
 
 function Dashboard() {
   const data = [
-    { day: "Monday", Attendance: 25 },
-    { day: "Tuesday", Attendance: 30 },
-    { day: "Wednesday", Attendance: 28 },
-    { day: "Thursday", Attendance: 32 },
-    { day: "Friday", Attendance: 35 },
+    { day: "Monday", Present: 25 , Absent:10 , Late:10 },
+    { day: "Tuesday", Present: 20 , Absent:5 , Late:30 },
+    { day: "Wednesday", Present: 10 , Absent:20 , Late:5 },
+    { day: "Thursday", Present: 30 , Absent:4 , Late:12 },
+    { day: "Friday", Present: 7 , Absent:11 , Late:12 },
   ];
+  const processData = data.map((item)=>({
+    ...item, 
+    gap1:2,
+    gap2:2
+  }));
   const data2 = [
     { name: "Male", value: 40 },
     { name: "Female", value: 30 },
   ];
   const COLORS = ["#000", "#FF8042"];
+  const navigate = useNavigate();
+
   //firebase user loginin details after successfully logged in
   const [userDetails, setUserDetails] = useState(null);
+  const[loading , setLoading] = useState(true);
   const fetchUserData = async()=>{
     auth.onAuthStateChanged(async(user)=>{
       console.log(user);
-      // setUserDetails(user);
-      const docRef = doc(db,"Users", user.uid);
-      const docSnap = await getDoc(docRef);
-      if(docSnap.exists()){
-        setUserDetails(docSnap.data());
-        console.log("Datas Below");
-        console.log(docSnap.data());
-      }
-      else{
-
+      if(!user){
         console.log("User not logged in");
+        setUserDetails(null);
+        return;
+      }
+      // setUserDetails(user);
+      try{
+        const docRef = doc(db,"Users", user.uid);
+        const docSnap = await getDoc(docRef);
+        if(docSnap.exists()){
+          setUserDetails(docSnap.data());
+         // setLoading(false);
+          console.log("Datas Below");
+          console.log(docSnap.data());
+        }
+        else{
+          //setLoading(true);
+          setUserDetails(null);
+          console.log("User not logged in");
+        }
+      }
+      catch(error){
+        console.log("Error fetching user data",error);
       }
     });
   };
   useEffect(()=>{
    fetchUserData();
   },[]);
+
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserDetails(user.uid); 
+       // setLoading(false);// Set the current user's ID
+      } else {
+
+       // navigate("/login");
+        // Redirect to login if not authenticated
+      }
+    });
+    return () => unsubscribe(); // Cleanup the subscription
+  }, [auth, navigate]);
+
+    if (!userDetails) {
+    return <div className="d-flex mt-3 mb-3 justify-content-center align-items-center " ><p>Please Login to come here</p></div>;
+  };
+
+
+
   async function handleLoggedOut(){
    try{
     await auth.signOut();
-    window.location.href= './Login';
-    console.log("Logged out successfully");
+    setUserDetails(null);
+    navigate('/login');
     toast.success("Logged out successfully");
+   // window.location.href= './Login';
+    console.log("Logged out successfully");
+    
    } catch(error){
     console.log("Error logging out".error.message);
    }
@@ -62,6 +109,7 @@ function Dashboard() {
 
   return(
   <div className="dashboard-container">
+    <ToastContainer/>
   {/* Sidebar Placeholder */}
   {/* Main Content */}
 
@@ -151,30 +199,41 @@ function Dashboard() {
   
 </Row>
 <Row  >
-  <Col  sm={12} lg={5} style={{backgroundColor:'white', marginLeft:'10px',marginRight:'10px', marginTop:'10px', }}>
+  <Col  sm={12} lg={5} style={{backgroundColor:'white', marginLeft:'10px',marginRight:'10px', marginTop:'10px',  }}>
   <h6 style={{fontWeight:'bold', marginTop:'10px', fontFamily: '"Poppins", sans-serif'}}>Attendance Overview</h6>
   <ResponsiveContainer width="100%" height={400}>
       <BarChart
-        data={data}
+        data={processData}
         margin={{ top: 20, right: 10, left: 10, bottom: 10 }}
         
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="day" 
         stroke='#A59D84'
-        tick={{fontSize:'12px'}}
-        />
+        tick={{fontSize:'12px',
+          fontFamily: '"Poppins", sans-serif',
+          fontWeight:'bold'
+        }}/>
         <YAxis 
         stroke='#A59D84'
-        tick={{fontSize:'12px'}}
+        axisLine={false}
+        tickLine={false}
+        tick={{fontSize:'12px',
+          fontFamily: '"Poppins", sans-serif',
+          fontWeight:'bold'
+        }}
         />
         <Tooltip />
         <Legend />
-        <Bar dataKey="Attendance" fill="#82ca9d" barSize={15} />
+        <Bar  dataKey="Present"  stackId='a' fill="#82ca9d" barSize={15} />
+        <Bar  dataKey="gap1"  stackId='a' fill="transparent" barSize={15} />
+        <Bar dataKey="Absent" stackId='a' fill="#8284d8" barSize={15} />
+        <Bar  dataKey="gap2"  stackId='a' fill="transparent" barSize={15} />
+        <Bar dataKey="Late" stackId='a' fill="#ff8042" barSize={15} />
       </BarChart>
     </ResponsiveContainer>
   </Col>
-  <Col sm={12} lg={5} style={{backgroundColor:'white', marginTop:'10px', marginLeft:'15px', marginRight:'15px'}}>
+  <Col sm={12} lg={5} style={{backgroundColor:'white', marginTop:'10px', marginLeft:'15px', marginRight:'15px', padding:'20px' }}>
   <h6 style={{fontWeight:'bold', marginTop:'10px', fontFamily: '"Poppins", sans-serif'}}>Gender By Employees</h6>
   <ResponsiveContainer width="100%" height={400}>
       <PieChart>
@@ -184,8 +243,8 @@ function Dashboard() {
           nameKey="name"
           cx="50%"
           cy="50%"
-          innerRadius={80}
-          outerRadius={150}
+          innerRadius={60}
+          outerRadius={120}
           fill="#8884d8"
         >
           {data.map((entry, index) => (
@@ -232,8 +291,8 @@ function Dashboard() {
 </Row>
 </div>
       </>
-    ):(<div className='loads'><ProgressBar animated now={45} /><p>Just a moment...</p></div>)
-   }
+    ):(<div className="d-flex mt-3 mb-3 justify-content-center align-items-center " ><p>Please Login to come here</p></div>
+    )}
 
   </div>
 

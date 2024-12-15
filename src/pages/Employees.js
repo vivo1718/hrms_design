@@ -1,67 +1,151 @@
 import React, { useState, useEffect } from "react";
-import { collection, getDocs, addDoc } from "firebase/firestore";
+import { collection, getDocs, addDoc , query , where , orderBy } from "firebase/firestore";
 import { db } from "../components/firebase";
+import { getAuth , onAuthStateChanged } from "firebase/auth";
 import { toast, ToastContainer } from 'react-toastify';
 import { Card , Button , Row , Col , Form , FloatingLabel} from "react-bootstrap";
 import './Employees.css';
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell } from "@fortawesome/free-solid-svg-icons";
+import { faBell , faAdd, faThList } from "@fortawesome/free-solid-svg-icons";
+import back from '../assets/back.jpg';
+import man from '../assets/man.jpg';
+import * as XLSX from "xlsx";
 
+const Employees = () =>{
 
-function Employees() {
-
-  const [employees, setEmployees] = useState([]);
+const [employees, setEmployees] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [currentUser, setCurrentUser] = useState(null); // Current user state
-
   const [newEmployee, setNewEmployee] = useState({
     name: "",
-    email: "",
+    email:"",
     position: "",
-    department: ""
+    department: "",
   });
+  const [userId, setUserId] = useState(null);
 
-  const employeesCollection = collection(db, "Employees");
-  
-  // Fetch employees from Firestore
+   const navigate = useNavigate();
+  const auth = getAuth();
+
+  // Check for authenticated user
   useEffect(() => {
-    const fetchEmployees = async () => {
-      try {
-        const data = await getDocs(employeesCollection);
-        setEmployees(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-      } catch (err) {
-        console.error("Error fetching employees: ", err);
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserId(user.uid); // Set the current user's ID
+      } else {
+        toast.warning("Please Login to see employees");
+       // navigate("/login"); // Redirect to login if not authenticated
       }
-    };
-
-    fetchEmployees();
-  }, []);
-  const filteredEmployees = employees.filter((employee) =>
-    employee.displayName?.toLowerCase().includes(searchTerm.toLowerCase()) || 
-    employee.email?.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-  
-  if (filteredEmployees.length === 0 && searchTerm) {
-    toast.warning("No employees found matching your search.", {
-      position: "top-right",
     });
-  }
-  // Add new employee to Firestore
-  const handleAddEmployee = async (e) => {
-    e.preventDefault();
+    return () => unsubscribe(); // Cleanup the subscription
+  }, [auth, navigate]);
+
+  // Fetch employees
+  const fetchEmployees = async () => {
+    if (!userId) return;
+
     try {
-      await addDoc(employeesCollection, newEmployee);
-      setEmployees([...employees, { ...newEmployee }]); // Update state
-      setNewEmployee({ name: "", email: "", position: "", department: "" }); // Reset form
-      alert("Employee added successfully!");
-    } catch (err) {
-      console.error("Error adding employee: ", err);
+      const employeesRef = collection(db, "users", userId, "employees");
+      const q = query(employeesRef, orderBy("name")); // Sort by name
+      const querySnapshot = await getDocs(q);
+      const employeeList = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setEmployees(employeeList);
+    } catch (error) {
+      console.error("Error fetching employees:", error);
     }
   };
 
+  const [showSingleEmployeeForm, setShowSingleEmployeeForm] = useState(false);
+  const [showMultipleEmployeeForm, setShowMultipleEmployeeForm] = useState(false);
+
+  // Toggle visibility of the single employee form
+  
+  const [file, setFile] = useState(null);
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+  // Add multiple employees
+  const handleFileUpload = async () => {
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = async (e) => {
+        const data = e.target.result;
+        const workbook = XLSX.read(data, { type: "array" });
+        const sheetName = workbook.SheetNames[0]; // Get the first sheet
+        const sheet = workbook.Sheets[sheetName];
+        const jsonData = XLSX.utils.sheet_to_json(sheet); // Convert sheet to JSON
+
+        try {
+          // Add multiple employees to Firestore
+          const employeesRef = collection(db, "users", userId, "employees");
+        const batchPromises = jsonData.map(async (employee) => {
+          return addDoc(employeesRef, {
+            name: employee.name || "",
+            email: employee.email || "",
+            position: employee.position || "",
+            department: employee.department || "",
+          });
+        });
+
+        await Promise.all(batchPromises);
+        toast.success("Employees added successfully!");
+        fetchEmployees();
+        } catch (error) {
+          console.error("Error adding employees: ", error);
+          toast.error("Error adding employees");
+
+        }
+      };
+      reader.readAsArrayBuffer(file);
+    }
+  };
+  // Add single employee
+  const handleAddEmployee = async (e) => {
+    e.preventDefault();
+    if (!userId) return;
+
+    try {
+      const employeesRef = collection(db, "users", userId, "employees");
+      await addDoc(employeesRef, newEmployee);
+      fetchEmployees(); // Refresh the list
+      setNewEmployee({ name: "", email:"", position: "", department: "" }); // Reset form
+      toast.success("Employee Added successfully");
+    } catch (error) {
+      console.error("Error adding employee:", error);
+    }
+  };
+
+  // Filter employees
+//   const filteredEmployees = employees.filter((employee) =>
+//     employee.name.toLowerCase().includes(searchTerm.toLowerCase())
+//   );
+const filteredEmployees = employees.filter((employee) =>
+        employee.displayName?.toLowerCase().includes(searchTerm.toLowerCase()) || 
+        employee.email?.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      
+      if (filteredEmployees.length === 0 && searchTerm) {
+        toast.warning("No employees found matching your search.", {
+          position: "top-right",
+        });
+        //alert("No employees found ")
+      }
+
+  useEffect(() => {
+    fetchEmployees();
+  }, [userId]); // Fetch employees when userId changes
+
+  if (!userId) {
+    return <div className="d-flex mt-3 mb-3 justify-content-center align-items-center " ><p>Please Login to come here</p></div>;
+  };
+
+
   return (
     <div className="employees_main">
-
+         <ToastContainer></ToastContainer>
         <Row  xs={12} sm={12} md={2} lg={3} className="employee_bar">
             <Col xs={12} sm={12} md={3} lg={4}><p className="emp_title">Employees</p></Col>
             <Col xs={12} sm={12} md={9} lg={8} ><Form.Group className="mb-4 mt-2  " style={{borderColor:'#FF8042',width:'100%', marginRight:'10px',borderWidth:'3px'}}>
@@ -78,19 +162,50 @@ function Employees() {
             
             </div></Col> */}
         </Row>
-        <Row xs={12} sm={12} md={2} lg={4} className="row1 g-3  ">
+        <Row  className=" d-flex g-3 justify-content-center align-items-center ">
         {(filteredEmployees.length > 0 ? filteredEmployees : employees).map(
           (employee, index) => (
-            <Col key={index} className="col1 "  >
-              <Card >
+            <Col key={index} 
+            xs={12}
+            sm={filteredEmployees.length > 0 && filteredEmployees.length <=3 ? 12 : 6}
+            md={filteredEmployees.length > 0 && filteredEmployees.length <=3 ? 12 : 6}
+            lg={ filteredEmployees.length > 0 && filteredEmployees.length <=2 ? 6 : 3}
+            className="d-flex justify-content-center "  >
+              <Card   className="col_out" style={{width:"16rem"}}>
                 {/* Employee Photo */}
                 <Card.Img
                   variant="top"
-                  style={{height:'10rem'}}
+                  style={{height:"8rem"}}
 
-                  src={employee.photoURL || "https://via.placeholder.com/150"}
+                  src={back}
                 />
                 <Card.Body>
+                <div className="d-flex  justify-content-center align-items-center mb-3"
+      style={{backgroundColor:'orange',
+        height:'4rem',
+        marginTop:'-3rem',
+        width:'4rem',
+        overflow:'hidden',
+        border:'3px solid orange',
+       // boxShadow: " 5px 5px 5px 5px green ",
+        color:'#fff',
+        borderRadius:'2rem',
+        background: 'linear-gradient(to bottom, #ff7e5f, #feb47b)'
+
+
+      }}
+      
+      >
+        <img
+        src={man}
+        style={{
+            width:'100%',
+            height:'100%',
+            objectFit:'cover'
+        }}
+        ></img>
+        {/* <FontAwesomeIcon size='lg' icon={faAdd}></FontAwesomeIcon> */}
+        </div>
                   <Card.Title className="fontf1">{employee.name}</Card.Title>
                   <hr style={{
                     border:'1px dashed green'
@@ -116,22 +231,61 @@ function Employees() {
       {/* No Results Message */}
       {filteredEmployees.length === 0 && searchTerm && (
         
-        <ToastContainer></ToastContainer>
+        <div></div>
       )}
     
 
       {/* Add New Employee Form */}
-      <h2>Add New Employee</h2>
-      <Card style={{padding:'20px',width:'18rem'}}>
-      <Form onSubmit={handleAddEmployee}>
+      <div className="  d-flex flex-column mt-3 mb-3 justify-content-center align-items-center "
+      style={{
+        width:'100%',
+        paddingTop:'20px'
+
+      }}
+      >
+      
+      <div className="d-flex flex-column  justify-content-center align-items-center">
+      <Button className="d-flex  justify-content-center align-items-center"
+      style={{backgroundColor:'orange',
+        height:'3rem',
+        width:'3rem',
+        color:'#fff',
+        borderColor:'orange',
+        borderRadius:'1.5rem',
+        background: 'linear-gradient(to bottom, #ff7e5f, #feb47b)'
+
+
+      }}
+      
+      >
+        <FontAwesomeIcon size='lg' icon={faAdd}></FontAwesomeIcon>
+        </Button>
+        <p className="fontf mt-2">Add Employees</p>
+      </div>
+      
+
+      
+      {/* {showSingleEmployeeForm  && <AddSingleEmployee />}
+      { showMultipleEmployeeForm && <AddMultipleEmployees />}*/}
+
+      <Row className=" d-flex justify-content-center align-self-center"
+      style={{backgroundColor:'#fff',
+        width:'100%',
+        padding:'20px'
+
+      }}
+      >
+        <Col xs={12} sm={12} md={12} lg={6}  className=" d-flex justify-content-center align-items-center mb-3" > <Card style={{padding:'20px', width:'80%'}}> 
+      <Form className="d-flex flex-column" onSubmit={handleAddEmployee}>
        <FloatingLabel
        controlId="floatingInput"       
        label="First Name"
        style={{borderColor:'grey'}}
-       className="mb-3"
+       className="fontf mb-3"
        > <Form.Control
           type="text"
           placeholder="Name"
+          className="fontf"
           value={newEmployee.name}
           onChange={(e) =>
             setNewEmployee({ ...newEmployee, name: e.target.value })
@@ -143,9 +297,10 @@ function Employees() {
         controlId="floatingInput"       
         label="Enter email"
         style={{borderColor:'grey'}}
-        className="mb-3"
+        className="fontf mb-3"
         ><Form.Control
           type="email"
+          className="fontf"
           placeholder="Email"
           value={newEmployee.email}
           onChange={(e) =>
@@ -157,9 +312,10 @@ function Employees() {
         controlId="floatingInput"       
         label="Enter position"
         style={{borderColor:'grey'}}
-        className="mb-3"
+        className="fontf mb-3"
         ><Form.Control
           type="text"
+          className="fontf"
           placeholder="Position"
           value={newEmployee.position}
           onChange={(e) =>
@@ -169,13 +325,16 @@ function Employees() {
         ></Form.Control>
         </FloatingLabel>
         <FloatingLabel
+
         controlId="floatingInput"       
         label="Enter department"
         style={{borderColor:'grey'}}
-        className="mb-3"
+        className="fontf mb-3"
         ><Form.Control
           type="text"
           placeholder="Department"
+          className="fontf"
+
           value={newEmployee.department}
           onChange={(e) =>
             setNewEmployee({ ...newEmployee, department: e.target.value })
@@ -183,9 +342,33 @@ function Employees() {
           required
         ></Form.Control>
         </FloatingLabel>
-        <Button type="submit">Add Employee</Button>
+        <div className="d-flex justify-content-center align-self-stretch" ><Button style={{width:'100%'}} variant="success">Add Employee</Button></div>
       </Form>
-      </Card>
+      </Card> </Col>
+      
+        <Col xs={12} sm={12} md={12} lg={6}  className=" d-flex justify-content-center align-items-center" >
+        <Form className="p-3">
+        {/* File Upload with Floating Label */}
+        <Form.Group className="form-floating mb-3 ">
+          <Form.Control
+            type="file"
+            accept=".xlsx,.xls"
+            onChange={handleFileChange}
+            id="uploadExcel"
+            placeholder="Upload Excel File"
+          />
+        </Form.Group>
+
+        {/* Submit Button */}
+        <div className=" d-flex justify-content-center align-items-center align-self-stretch"><Button variant="success" style={{width:'100%'}} onClick={handleFileUpload}>
+          Upload Excel
+        </Button></div>
+        <br></br>
+        <p className="fontf">Kindly maintain the excel format as name , position,department and email</p>
+      </Form>
+        </Col>
+      </Row>
+      </div>
     </div>
   );
 }
