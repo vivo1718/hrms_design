@@ -1,0 +1,109 @@
+/* Payroll.css */
+
+/* General container styles */
+.payrol {
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    /* background-image: url('../assets/dot.jpg'); */
+
+  }
+  
+  /* Title styles */
+  h5 {
+    font-weight: bold;
+    color: #4caf50;
+    margin-bottom: 20px;
+  }
+  
+  /* Button styles */
+  button {
+    font-size: 14px;
+    border-radius: 5px;
+  }
+  
+  button.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+  }
+  
+  button.btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+  }
+  
+  button.btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+  }
+  
+  button.btn-warning:hover {
+    background-color: #e0a800;
+    border-color: #d39e00;
+  }
+  
+  /* Table styles */
+  table {
+    font-size: 14px;
+  }
+  
+  table th {
+    background-color: #f8f9fa;
+    color: #333;
+    font-weight: 600;
+  }
+  
+  table td {
+    vertical-align: middle;
+  }
+  
+  table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Modal styles */
+  .modal-title {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .modal-body {
+    padding: 20px;
+  }
+  
+  .modal-footer button {
+    font-size: 14px;
+  }
+  
+  /* Spinner alignment */
+  .text-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .text-center p {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #666;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    button {
+      font-size: 12px;
+    }
+  
+    table {
+      font-size: 12px;
+    }
+  
+    .modal-body {
+      padding: 10px;
+    }
+  }
+  

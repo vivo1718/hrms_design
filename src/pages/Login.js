@@ -165,10 +165,9 @@ function Login() {
   marginTop:'10px',
   backgroundColor:'gray'
 }} ></div>
-<div className='d-flex flex-row justify-content-center align-items-center align-self-stretch ' 
+<div className=' g-log d-flex flex-row justify-content-center align-items-center  ' 
 style={{
   columnGap:'10px',
-  borderColor:'#000',
   width:'100%',
   height:'3rem',
   backgroundColor:'#fff',

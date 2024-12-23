@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { collection, getDocs, addDoc , query , where , orderBy } from "firebase/firestore";
+import { collection, getDocs, addDoc , query , where , orderBy, deleteDoc , doc} from "firebase/firestore";
 import { db } from "../components/firebase";
 import { getAuth , onAuthStateChanged } from "firebase/auth";
 import { toast, ToastContainer } from 'react-toastify';
@@ -7,7 +7,7 @@ import { Card , Button , Row , Col , Form , FloatingLabel} from "react-bootstrap
 import './Employees.css';
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell , faAdd, faThList } from "@fortawesome/free-solid-svg-icons";
+import { faBell , faAdd, faThList, faSearch } from "@fortawesome/free-solid-svg-icons";
 import back from '../assets/back.jpg';
 import man from '../assets/man.jpg';
 import * as XLSX from "xlsx";
@@ -50,7 +50,8 @@ const [employees, setEmployees] = useState([]);
       const querySnapshot = await getDocs(q);
       const employeeList = querySnapshot.docs.map((doc) => ({
         id: doc.id,
-        ...doc.data(),
+        
+       ...doc.data(),
       }));
       setEmployees(employeeList);
     } catch (error) {
@@ -102,6 +103,25 @@ const [employees, setEmployees] = useState([]);
       reader.readAsArrayBuffer(file);
     }
   };
+
+  const handle_emp = (id) => {
+    navigate(`/employee_details/${id}`);
+  };
+
+  const handleDeleteEmployee = async (id) => {
+    try {
+      // Delete employee from Firebase
+      const employeeDoc = doc(db, "users", userId, "employees", id);
+      await deleteDoc(employeeDoc);
+
+      // Update state to remove the deleted employee
+      setEmployees((prevEmployees) => prevEmployees.filter((employee) => employee.id !== id));
+      toast.success("Employee removed successfully!");
+    } catch (error) {
+      console.error("Error deleting employee:", error);
+      toast.error("Failed to remove employee.");
+    }
+  };
   // Add single employee
   const handleAddEmployee = async (e) => {
     e.preventDefault();
@@ -123,7 +143,7 @@ const [employees, setEmployees] = useState([]);
 //     employee.name.toLowerCase().includes(searchTerm.toLowerCase())
 //   );
 const filteredEmployees = employees.filter((employee) =>
-        employee.displayName?.toLowerCase().includes(searchTerm.toLowerCase()) || 
+        employee.name?.toLowerCase().includes(searchTerm.toLowerCase()) || 
         employee.email?.toLowerCase().includes(searchTerm.toLowerCase())
       );
       
@@ -151,12 +171,14 @@ const filteredEmployees = employees.filter((employee) =>
             <Col xs={12} sm={12} md={9} lg={8} ><Form.Group className="mb-4 mt-2  " style={{borderColor:'#FF8042',width:'100%', marginRight:'10px',borderWidth:'3px'}}>
         <Form.Control
           type="text"
+        
           style={{borderRadius:'20px',borderColor:'#FF8042',borderWidth:'2px'}}
           placeholder="Search employees by name or email..."
           value={searchTerm}
           className="form-control"
           onChange={(e) => setSearchTerm(e.target.value)}
         />
+        
       </Form.Group></Col>
             {/* <Col xs={12} sm={12} md={2} lg={3}><div className="emp_t"><p className="emp_title2">Time goes here</p>
             
@@ -219,7 +241,8 @@ const filteredEmployees = employees.filter((employee) =>
                   <Card.Text className="fontf">
                     <strong>Department:</strong> {employee.department}
                   </Card.Text >
-                  <div className="emp_btn"><Button  className="view" style={{width:'100%', color:'green'}} variant="success">View Profile</Button>
+                  <div className="emp_btn"><Button onClick={() => handle_emp(employee.id)} className="view" style={{width:'100%', color:'green'}} variant="success">View Profile</Button>
+                  <Button onClick={() => handle_emp(employee.id)} className="view2"   style={{width:'100%', color:'red', }} variant="danger">Remove</Button>
                   </div>
                 </Card.Body>
               </Card>
@@ -342,7 +365,7 @@ const filteredEmployees = employees.filter((employee) =>
           required
         ></Form.Control>
         </FloatingLabel>
-        <div className="d-flex justify-content-center align-self-stretch" ><Button style={{width:'100%'}} variant="success">Add Employee</Button></div>
+        <div className="d-flex justify-content-center align-self-stretch" ><Button onClick={handleAddEmployee} style={{width:'100%'}} variant="success">Add Employee</Button></div>
       </Form>
       </Card> </Col>
       

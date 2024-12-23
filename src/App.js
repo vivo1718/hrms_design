@@ -14,6 +14,7 @@ import Register from './pages/Register';
 import './App.css';
 import FloatingButtonMenu from './components/FloatingButtonMenu';
 import LoginOtp from './pages/LoginOtp';
+import EmployeeDescription from './pages/EmployeeDescription';
 
 function App() {
 
@@ -35,6 +36,8 @@ function App() {
                         <Route path="/leaves" element={<Leaves/>} />
                         <Route path="/payroll" element={<Payroll/>} />
                         <Route path="/setting" element={<Setting/>} />
+                        <Route path="/employee_details/:id" element={<EmployeeDescription/>} />
+
                          
                     </Routes>
                 </div>

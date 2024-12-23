@@ -7,7 +7,7 @@ import Stack from 'react-bootstrap/Stack';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import './Dashboard.css';
 import { useNavigate } from "react-router-dom";
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc , collection,getDocs } from 'firebase/firestore';
 import {PieChart, Pie, Cell} from "recharts"
 import { auth, db } from '../components/firebase';
 import { onAuthStateChanged , getAuth } from 'firebase/auth';
@@ -39,6 +39,8 @@ function Dashboard() {
   //firebase user loginin details after successfully logged in
   const [userDetails, setUserDetails] = useState(null);
   const[loading , setLoading] = useState(true);
+   const [userId, setUserId] = useState(null);
+
   const fetchUserData = async()=>{
     auth.onAuthStateChanged(async(user)=>{
       console.log(user);
@@ -68,6 +70,36 @@ function Dashboard() {
       }
     });
   };
+
+  const [employeeCount, setEmployeeCount] = useState(0);
+
+  const fetchEmployeeCount = async () => {
+    if (!userId) {
+      console.error("User ID is required to fetch employees.");
+      return;
+    }
+
+    try {
+      // Access the 'employees' subcollection for the given userId
+      const employeesCollection = collection(db, "users", userId, "employees");
+      const employeeSnapshot = await getDocs(employeesCollection);
+      console.log("Employee Snapshot:", employeeSnapshot.docs.map(doc => doc.data()));
+
+      // Get the total number of documents
+      setEmployeeCount(employeeSnapshot.size);
+    } catch (error) {
+      console.error("Error fetching employee data:", error);
+    }
+  };
+
+  useEffect(() => {
+    
+
+    fetchEmployeeCount();
+  }, [userId]);
+
+
+
   useEffect(()=>{
    fetchUserData();
   },[]);
@@ -134,7 +166,7 @@ function Dashboard() {
   <Row>
   <Card className='dash_card '>
     <div className='icon_bar'><FontAwesomeIcon icon={faUsers} className="icon_back"></FontAwesomeIcon></div>
-    <p className='emp'>1232</p>
+    <p className='emp'>{employeeCount}</p>
     <Card.Title className='card_title'>Total Employees</Card.Title>
   </Card>
  
