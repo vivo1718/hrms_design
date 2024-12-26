@@ -15,34 +15,71 @@ import './App.css';
 import FloatingButtonMenu from './components/FloatingButtonMenu';
 import LoginOtp from './pages/LoginOtp';
 import EmployeeDescription from './pages/EmployeeDescription';
+import Chat from './pages/Chat';
+import LandingPage from './components/LandingPage';
 
 function App() {
 
     return (
-        <Router>
-            <div className="d-flex">
-                <Sidebar2 />
-                <FloatingButtonMenu></FloatingButtonMenu>
-                <div className="container">
-                    <Routes>
-                    <Route path="/" element={<Login/>} />
-                        <Route path="/login" element={<Login/>}/>
-                        <Route path="/login_with_otp" element={<LoginOtp/>}/>
-                        <Route path="/register" element={<Register/>}/>
-                        <Route path="/dashboard" element={<Dashboard/>} />
-                        <Route path="/employees" element={<Employees/>} />
-                        <Route path="/departments" element={<Departments/>} />
-                        <Route path="/attendance" element={<Attendance/>} />
-                        <Route path="/leaves" element={<Leaves/>} />
-                        <Route path="/payroll" element={<Payroll/>} />
-                        <Route path="/setting" element={<Setting/>} />
-                        <Route path="/employee_details/:id" element={<EmployeeDescription/>} />
+        // <Router>
+        //     <div className="d-flex">
+        //         <Sidebar2 />
+        //         <FloatingButtonMenu></FloatingButtonMenu>
+        //         <div className="container">
+        //             <Routes>
+        //             <Route path="/" element={<LandingPage/>} />
+        //                 <Route path="/login" element={<Login/>}/>
+        //                 <Route path="/login_with_otp" element={<LoginOtp/>}/>
+        //                 <Route path="/register" element={<Register/>}/>
+        //                 <Route path="/dashboard" element={<Dashboard/>} />
+        //                 <Route path="/employees" element={<Employees/>} />
+        //                 <Route path="/departments" element={<Departments/>} />
+        //                 <Route path="/attendance" element={<Attendance/>} />
+        //                 <Route path="/leaves" element={<Leaves/>} />
+        //                 <Route path="/payroll" element={<Payroll/>} />
+        //                 <Route path="/setting" element={<Setting/>} />
+        //                 <Route path="/chat" element={<Chat/>} />
+
+        //                 <Route path="/employee_details/:id" element={<EmployeeDescription/>} />
 
                          
-                    </Routes>
-                </div>
+        //             </Routes>
+        //         </div>
+        //     </div>
+        // </Router>
+        <Router>
+      <Routes>
+        {/* Landing Page Route */}
+        <Route path="/" element={<LandingPage />} />
+        
+        {/* Other App Pages */}
+        <Route
+          path="/*"
+          element={
+            <div className="d-flex">
+              <Sidebar2 />
+              <FloatingButtonMenu />
+              <div className="container">
+                <Routes>
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/login_with_otp" element={<LoginOtp />} />
+                  <Route path="/register" element={<Register />} />
+                  <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/employees" element={<Employees />} />
+                  <Route path="/departments" element={<Departments />} />
+                  <Route path="/attendance" element={<Attendance />} />
+                  <Route path="/leaves" element={<Leaves />} />
+                  <Route path="/payroll" element={<Payroll />} />
+                  <Route path="/setting" element={<Setting />} />
+                  <Route path="/chat" element={<Chat />} />
+                  <Route path="/employee_details/:id" element={<EmployeeDescription />} />
+                </Routes>
+              </div>
             </div>
-        </Router>
+          }
+        />
+      </Routes>
+    </Router>
     );
 }
 

@@ -39,7 +39,20 @@ function Dashboard() {
   //firebase user loginin details after successfully logged in
   const [userDetails, setUserDetails] = useState(null);
   const[loading , setLoading] = useState(true);
-   const [userId, setUserId] = useState(null);
+ const [userId, setUserId] = useState(null);
+
+
+
+ useEffect(() => {
+  // Fetch the authenticated user directly
+  const currentUser = getAuth().currentUser;
+
+  if (currentUser) {
+    setUserId(currentUser.uid); // Set the user ID from Firebase Auth
+  } else {
+    console.log("User not authenticated");
+  }
+}, []);
 
   const fetchUserData = async()=>{
     auth.onAuthStateChanged(async(user)=>{
@@ -71,31 +84,36 @@ function Dashboard() {
     });
   };
 
-  const [employeeCount, setEmployeeCount] = useState(0);
+  const [totalEmployees, setTotalEmployees] = useState(0);
+  //const [loading, setLoading] = useState(true);
 
-  const fetchEmployeeCount = async () => {
-    if (!userId) {
-      console.error("User ID is required to fetch employees.");
-      return;
-    }
-
-    try {
-      // Access the 'employees' subcollection for the given userId
-      const employeesCollection = collection(db, "users", userId, "employees");
-      const employeeSnapshot = await getDocs(employeesCollection);
-      console.log("Employee Snapshot:", employeeSnapshot.docs.map(doc => doc.data()));
-
-      // Get the total number of documents
-      setEmployeeCount(employeeSnapshot.size);
-    } catch (error) {
-      console.error("Error fetching employee data:", error);
-    }
-  };
-
+  // Fetch the total number of employees for a specific userId
   useEffect(() => {
-    
+    if (!userId) {
+      return; // Return early if no userId is set
+    }
 
-    fetchEmployeeCount();
+    const fetchEmployeeCount = async () => {
+      try {
+        // Get the employees subcollection of the specific user
+        const employeesRef = collection(db, "users", userId, "employees");
+        const snapshot = await getDocs(employeesRef);
+
+        // Check if the snapshot is empty
+        if (snapshot.empty) {
+          console.log("No employees found");
+          setTotalEmployees(0);
+        } else {
+          setTotalEmployees(snapshot.size); // Get the number of documents in the collection
+        }
+      } catch (error) {
+        console.error("Error fetching employee count: ", error);
+      } finally {
+        setLoading(false); // Set loading to false after fetching data
+      }
+    };
+
+    fetchEmployeeCount(); // Call the function to fetch the count
   }, [userId]);
 
 
@@ -166,7 +184,7 @@ function Dashboard() {
   <Row>
   <Card className='dash_card '>
     <div className='icon_bar'><FontAwesomeIcon icon={faUsers} className="icon_back"></FontAwesomeIcon></div>
-    <p className='emp'>{employeeCount}</p>
+    <p className='emp'>{totalEmployees}</p>
     <Card.Title className='card_title'>Total Employees</Card.Title>
   </Card>
  
@@ -257,9 +275,9 @@ function Dashboard() {
         />
         <Tooltip />
         <Legend />
-        <Bar  dataKey="Present"  stackId='a' fill="#82ca9d" barSize={15} />
+        <Bar  dataKey="Present"  stackId='a' fill="#82dc8d" barSize={15}  />
         <Bar  dataKey="gap1"  stackId='a' fill="transparent" barSize={15} />
-        <Bar dataKey="Absent" stackId='a' fill="#8284d8" barSize={15} />
+        <Bar dataKey="Absent" stackId='a' fill="#8274f8" barSize={15} />
         <Bar  dataKey="gap2"  stackId='a' fill="transparent" barSize={15} />
         <Bar dataKey="Late" stackId='a' fill="#ff8042" barSize={15} />
       </BarChart>

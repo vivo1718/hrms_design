@@ -191,7 +191,7 @@ const filteredEmployees = employees.filter((employee) =>
             xs={12}
             sm={filteredEmployees.length > 0 && filteredEmployees.length <=3 ? 12 : 6}
             md={filteredEmployees.length > 0 && filteredEmployees.length <=3 ? 12 : 6}
-            lg={ filteredEmployees.length > 0 && filteredEmployees.length <=2 ? 6 : 3}
+            lg={ filteredEmployees.length >0 && filteredEmployees.length <=2 ? 6 : 3}
             className="d-flex justify-content-center "  >
               <Card   className="col_out" style={{width:"16rem"}}>
                 {/* Employee Photo */}
@@ -202,17 +202,15 @@ const filteredEmployees = employees.filter((employee) =>
                   src={back}
                 />
                 <Card.Body>
-                <div className="d-flex  justify-content-center align-items-center mb-3"
-      style={{backgroundColor:'orange',
+                <div className="img_div d-flex  justify-content-center align-items-center mb-3"
+      style={{backgroundColor:'#fff',
         height:'4rem',
         marginTop:'-3rem',
         width:'4rem',
+        padding:'10px',
         overflow:'hidden',
-        border:'3px solid orange',
        // boxShadow: " 5px 5px 5px 5px green ",
-        color:'#fff',
-        borderRadius:'2rem',
-        background: 'linear-gradient(to bottom, #ff7e5f, #feb47b)'
+        borderRadius:'1rem',
 
 
       }}
@@ -221,8 +219,9 @@ const filteredEmployees = employees.filter((employee) =>
         <img
         src={man}
         style={{
-            width:'100%',
-            height:'100%',
+            width:'3rem',
+            height:'3rem',
+            borderRadius:'1rem',
             objectFit:'cover'
         }}
         ></img>

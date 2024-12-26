@@ -71,7 +71,7 @@ const LoginOtp = () => {
   return (
     <div className="d-flex flex-column justify-content-center align-items-center  "
     style={{
-      height:'100vh'
+      height:'100vh',
     }}
     >
       <h5 style={{
@@ -109,7 +109,7 @@ const LoginOtp = () => {
         </div>
       ) : (
         <div>
-          <FloatingLabel >
+          
           <Form.Control
             type="text"
             placeholder="Verify OTP"
@@ -118,7 +118,7 @@ const LoginOtp = () => {
             }}
             value={otp}
             onChange={(e) => setOtp(e.target.value)}>
-            </Form.Control></FloatingLabel>
+            </Form.Control>
             <div className="d-flex justify-content-center align-self-stretch mt-2" ><Button style={{width:'100%'}} onClick={verifyOtp}>Send OTP</Button></div>
 
         </div>
