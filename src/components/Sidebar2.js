@@ -79,10 +79,9 @@ const Sidebar2 = () => {
       {/* Help Section */}
       <div className="d-flex flex-column p-2 justify-content-center align-items-center mt-2">
         <Card
-          className="p-2 justify-content-center align-items-center"
+          className=" aler p-2 justify-content-center align-items-center"
           style={{
             margin: '10px',
-            backgroundColor: '#fff',
             justifyContent: 'center',
             borderRadius: '20px',
           }}
@@ -119,7 +118,11 @@ const Sidebar2 = () => {
           <br />
           {/* Footer Section */}
           <Card.Footer className="text-muted text-center">
-            <small>© 2024 HRMS System</small>
+            <small  style={{
+              fontFamily: 'Poppins',
+              fontWeight: 'bold',
+              color: '#fff6',
+            }} >© 2024 HRMS System</small>
           </Card.Footer>
         </Card>
       </div>

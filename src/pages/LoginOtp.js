@@ -1,10 +1,16 @@
 import React, { useState } from "react";
-import {  RecaptchaVerifier, signInWithPhoneNumber, PhoneAuthProvider, signInWithCredential } from "firebase/auth";
-import { Button, FloatingLabel ,Form } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 import { auth } from "../components/firebase";
+import { useNavigate } from "react-router-dom";
+import { Button, FloatingLabel, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCertificate } from "@fortawesome/free-solid-svg-icons";
+import {
+  RecaptchaVerifier,
+  signInWithPhoneNumber,
+  PhoneAuthProvider,
+  signInWithCredential,
+} from "firebase/auth";
+
 const LoginOtp = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [otp, setOtp] = useState("");
@@ -22,7 +28,7 @@ const LoginOtp = () => {
           callback: (response) => {
             console.log("reCAPTCHA solved:", response);
           },
-          'expired-callback': () => {
+          "expired-callback": () => {
             console.log("reCAPTCHA expired. Please resolve again.");
           },
         },
@@ -61,7 +67,7 @@ const LoginOtp = () => {
     signInWithCredential(auth, credential)
       .then((result) => {
         console.log("User signed in successfully:", result.user);
-        navigate('/dashboard');
+        navigate("/dashboard");
       })
       .catch((error) => {
         console.error("Error verifying OTP:", error);
@@ -69,58 +75,73 @@ const LoginOtp = () => {
   };
 
   return (
-    <div className="d-flex flex-column justify-content-center align-items-center  "
-    style={{
-      height:'100vh',
-    }}
+    <div
+      className="d-flex flex-column justify-content-center align-items-center  "
+      style={{
+        height: "100vh",
+      }}
     >
-      <h5 style={{
-            fontFamily: '"Poppins", sans-serif'
-
-      }} >Verify Your Phone</h5> 
+      <h5
+        style={{
+          fontFamily: '"Poppins", sans-serif',
+        }}
+      >
+        Verify Your Phone
+      </h5>
       <div id="recaptcha-container"></div>
 
       {!isOtpSent ? (
         <div className="d-flex flex-column justify-content-center align-items-center">
-         <div className="d-flex justify-content-center align-items-center " style={{
-          backgroundColor:'#fff',
-          height:'6rem',
-          borderRadius:'3rem',
-          marginBottom:'20px',
-          width:'6rem'
-         }}> 
-         <FontAwesomeIcon icon={faCertificate} style={{color:'#B197FC',
-          height:'3rem',
-          width:'3rem'
-         }} ></FontAwesomeIcon>
-         </div>
-<Form className="d-flex flex-column" style={{width:'20rem'}}>
-            <FloatingLabel >
-          <Form.Control
-            type="text"
-            placeholder="Enter phone number"
+          <div
+            className="d-flex justify-content-center align-items-center "
             style={{
-              color:'#000'
+              backgroundColor: "#fff",
+              height: "6rem",
+              borderRadius: "3rem",
+              marginBottom: "20px",
+              width: "6rem",
             }}
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}>
-            </Form.Control></FloatingLabel></Form>
-          <div className="d-flex justify-content-center align-self-stretch mt-2" ><Button style={{width:'100%'}} onClick={sendOtp}>Send OTP</Button></div>
+          >
+            <FontAwesomeIcon
+              icon={faCertificate}
+              style={{ color: "#B197FC", height: "3rem", width: "3rem" }}
+            ></FontAwesomeIcon>
+          </div>
+          <Form className="d-flex flex-column" style={{ width: "20rem" }}>
+            <FloatingLabel>
+              <Form.Control
+                type="text"
+                placeholder="Enter phone number"
+                style={{
+                  color: "#000",
+                }}
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+              ></Form.Control>
+            </FloatingLabel>
+          </Form>
+          <div className="d-flex justify-content-center align-self-stretch mt-2">
+            <Button style={{ width: "100%" }} onClick={sendOtp}>
+              Send OTP
+            </Button>
+          </div>
         </div>
       ) : (
         <div>
-          
           <Form.Control
             type="text"
             placeholder="Verify OTP"
             style={{
-              color:'#000'
+              color: "#000",
             }}
             value={otp}
-            onChange={(e) => setOtp(e.target.value)}>
-            </Form.Control>
-            <div className="d-flex justify-content-center align-self-stretch mt-2" ><Button style={{width:'100%'}} onClick={verifyOtp}>Send OTP</Button></div>
-
+            onChange={(e) => setOtp(e.target.value)}
+          ></Form.Control>
+          <div className="d-flex justify-content-center align-self-stretch mt-2">
+            <Button style={{ width: "100%" }} onClick={verifyOtp}>
+              Send OTP
+            </Button>
+          </div>
         </div>
       )}
     </div>

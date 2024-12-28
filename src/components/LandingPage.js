@@ -7,34 +7,42 @@ import image5 from '../assets/hrms.jpg';
 import image6 from '../assets/login.jpg';
 import image7 from '../assets/manage.jpg';
 import image8 from '../assets/register.jpg';
-
-import HiddenImages from "../pages/HiddenImages";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight, faChevronDown, faChevronLeft, faPeopleArrows } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faChevronDown, faChevronLeft, faPeopleArrows, faTimes,faBars } from "@fortawesome/free-solid-svg-icons";
+import { useLocation } from "react-router-dom";
+
 const LandingPage = () => {
   const navigate = useNavigate();
-  
+  const [expanded, setExpanded] = useState(false); 
   const handleLoginRedirect = () => {
     navigate("/login");
-
+  
     
   };
 
-  const [visibleImages, setVisibleImages] = useState([false, false, false]);
-
+  const location  = useLocation();
 
   return (
     <div className="landing-page">
       {/* Navbar */}
       <Navbar  className=" ps-4 pe-4 " expand="lg" bg="black" variant="dark"  fixed="top">
           <Navbar.Brand style={{fontWeight:'bold'}} href="#">ADSOFT</Navbar.Brand>
-          <Navbar.Toggle aria-controls="navbar-nav" />
+          <Navbar.Toggle aria-controls="navbar-nav" 
+                onClick={() => setExpanded(!expanded)} // Toggle state
+            ><FontAwesomeIcon
+            icon={expanded ? faTimes : faBars} // Switch between icons
+            style={{ color: "#fff", fontSize: "1.5rem" }}
+          /> </Navbar.Toggle>
           <Navbar.Collapse id="navbar-nav">
             <Nav className="ms-auto">
-              <Nav.Link href="#features" style={{color:'#fffc'}} >Features <FontAwesomeIcon icon={faChevronDown}></FontAwesomeIcon></Nav.Link>
-              <Nav.Link href="#showcase" style={{color:'#fffc'}}>Showcase <FontAwesomeIcon icon={faChevronDown}></FontAwesomeIcon></Nav.Link>
-              <Nav.Link href="#testimonials" style={{color:'#fffc'}}>Testimonials <FontAwesomeIcon  size='sm' icon={faChevronDown}></FontAwesomeIcon></Nav.Link>
-              <Nav.Link href="#contact" style={{color:'#fffc'}}>Contact <FontAwesomeIcon icon={faChevronDown}></FontAwesomeIcon></Nav.Link>
+              <Nav.Link href="#features"  className={location.hash === "#features" ? "active" : ""}
+ style={{color:'#fffc'}} >Features <FontAwesomeIcon icon={faChevronDown}></FontAwesomeIcon></Nav.Link>
+              <Nav.Link href="#showcase"             className={location.hash === "#showcase" ? "active" : ""}
+    style={{color:'#fffc'}}>Showcase <FontAwesomeIcon icon={faChevronDown}></FontAwesomeIcon></Nav.Link>
+              <Nav.Link href="#testimonials"             className={location.hash === "#testimonials" ? "active" : ""}
+    style={{color:'#fffc'}}>Testimonials <FontAwesomeIcon  size='sm' icon={faChevronDown}></FontAwesomeIcon></Nav.Link>
+              <Nav.Link href="#contact"              className={location.hash === "#contact" ? "active" : ""}
+   style={{color:'#fffc'}}>Contact <FontAwesomeIcon icon={faChevronDown}></FontAwesomeIcon></Nav.Link>
             </Nav>
           </Navbar.Collapse>
       </Navbar>
@@ -178,7 +186,7 @@ const LandingPage = () => {
               </div>
             </div>
             <div className="mb-3" style={{color:'white'}} >
-              <textarea className="form-control border-secondary bg-dark text-white" rows="5" placeholder="Your Message" required style={{color:'white'}} ></textarea>
+              <textarea className="form-control border-secondary bg-dark text-white" rows="5" placeholder="Your Message" required  ></textarea>
             </div>
             <div className="text-center">
               <button type="submit" className="btn btn-info">Send Message</button>

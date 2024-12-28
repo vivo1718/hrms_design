@@ -11,6 +11,9 @@
     transition: transform 0.3s ease-in-out;
     margin-right: 20px;
   }
+  .aler{
+    background-color: #e6f7f662 !important;
+  }
   .fontf1{
     font-family: "Poppins", sans-serif;
     font-weight:bold;

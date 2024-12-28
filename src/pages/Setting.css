@@ -1,0 +1,24 @@
+/* Remove the default bluish focus color */
+.accordion-button:focus {
+    box-shadow: none !important; /* Removes the blue shadow */
+    outline: none !important; /* Removes the outline */
+  }
+  
+  /* Remove active state background change */
+  .accordion-button:not(.collapsed) {
+    background-color: #132d19 !important; /* Keep the default color */
+    color: #fff !important; /* White text */
+    border: 1px solid #132d19 !important; /* Matching border */
+  }
+  
+  /* Hover effect for the accordion headers */
+  .accordion-button:hover {
+    background-color: #132d19 !important; /* Slightly lighter orange for hover */
+    color: #fff !important;
+  }
+  
+  /* Custom border radius for accordion body */
+  .accordion-body {
+    border-radius: 0 0 5px 5px;
+  }
+  

@@ -6,8 +6,16 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+
+::-webkit-scrollbar-thumb {
+  background: #332f6e; /* Dark gray thumb */
+  border-radius: 5px;
+}
 html {
   width: 100%;
+  scrollbar-color: #41488a #f1f1f1;
+  scrollbar-width: thin; /* thumb color track color */
   height: 100%;
 }
 #root { /* For React apps */
