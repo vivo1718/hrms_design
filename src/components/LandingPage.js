@@ -68,6 +68,9 @@ const LandingPage = () => {
         Get Started<FontAwesomeIcon icon={faArrowRight} className="ms-2" />
       </Button>
         </div>
+        <svg class="hero-curve" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+        <path d="M0,224C120,192,240,160,360,181.3C480,203,600,277,720,288C840,299,960,245,1080,202.7C1200,160,1320,128,1440,160L1440,320L0,320Z" fill="#ffffff"></path>
+    </svg>
       </section>
 
       {/* Features Section */}

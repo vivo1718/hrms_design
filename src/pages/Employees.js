@@ -224,7 +224,7 @@ const Employees = () => {
                 borderColor: "#FF8042",
                 borderWidth: "2px",
               }}
-              placeholder="Search employees by name or email..."
+              placeholder="🔍 Search employees by name or email..."
               value={searchTerm}
               className="form-control"
               onChange={(e) => setSearchTerm(e.target.value)}
