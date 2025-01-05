@@ -48,12 +48,7 @@ const Sidebar2 = () => {
         <FontAwesomeIcon icon={faUserFriends} className="me-2" style={{ paddingRight: '10px' }} /> Employees
       </Link>
 
-      <Link
-        to="/departments"
-        className={`text-whit ${isActive('/departments') ? 'active' : ''}`}
-      >
-        <FontAwesomeIcon icon={faBuilding} className="me-2" style={{ paddingRight: '10px' }} /> Department
-      </Link>
+  
 
       <Link
         to="/attendance"

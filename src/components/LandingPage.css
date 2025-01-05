@@ -6,12 +6,12 @@
 .landing-page{background-color:#121212;color:#fff;width:'100vh';height:'100vh'}
 .btn1,.lead{color:#fff!important}
 .lead{background-color:#1f1f1f25!important}
-@keyframes typing{from{width:0}to{width:100%}}
-@keyframes blink{from{border-right-color:#000}to{border-right-color:transparent}}
+
 .btn1{display:flex!important;width:18rem!important;height:50px!important;flex-direction:row!important;justify-content:space-around!important;align-items:center!important;border-color:#19ec6a!important;font-family:Poppins,sans-serif!important;font-size:small!important;border-radius:30px!important}
 .feature-card,.testimonial{border-color:#1f1f1f!important}
 .btn1:hover{background-color:#12a059!important}.container1{background-color:none!important;justify-content:center;align-items:center}
-.hero{height:100vh;width:100%;background-image:url("../assets/hrms.jpg");background-size:cover;background-repeat:no-repeat;    box-shadow:0 5px 15px rgba(49,8,231,.737);
+.hero{height:100vh;width:100%;background-image:url("../assets/hrms-min.jpg");background-size:cover;background-repeat:no-repeat;
+  
 
     background-position:center;
 
@@ -24,4 +24,305 @@
     height: auto;
     z-index: 2;
     }
-    @keyframes zoomBackground{0%,100%{background-size:100%}50%{background-size:110%}}.hero_flex{background-color:#2a2a2a!important}.feature-card,.features{background-color:#fff}.feature-card{border-radius:20px!important;border-width:'2px'!important;transition:transform .3s}.feature-card:hover{transform:scale(1.05);border:none!important}.contact,.testimonials{background-color:#1f1f1f}.testimonial{display:flex;background-color:#0ff;border-radius:2px!important;font-style:italic}.owner{font-weight:700;color:#1f1f1f}.name::placeholder{color:#fff!important}.email::placeholder{color:#fff!important}.footer{background-color:#2a2a2a}.image-cards-container{position:relative;display:flex;gap:20px}.image-card{position:relative;overflow:hidden;border:5px solid #fff;transition:transform .3s ease-in-out}.image-card img{display:block;width:100%;height:100%;object-fit:cover}@media screen and (max-width:768px){.contact{padding-left:10px;padding-right:10px}.hero{height:auto;width:100%;padding:20px;margin-top:50px;background-image:url("../assets/hrms.jpg");background-size:cover;background-repeat:no-repeat;background-position:center;text-shadow:0 0 10px rgba(0,0,0,.7);animation:5s infinite zoomBackground}}.large-card,.small-card{width:300px;border:0;box-shadow:0 5px 15px rgba(49,8,231,.737)}.large-card{height:500px;z-index:2;transform:scale(1.1)}.small-card{height:400px;transform:rotate(45deg)}.left-card{transform:rotate(-45deg)}.right-card{transform:rotate(45deg)}.image-card:hover{transform:scale(1.15);border:2px solid #fff;border-radius:20px;box-shadow:0 5px 15px rgba(49,8,231,.737)}
+    @media screen and (max-width: 768px) {
+        .hero_curve {
+            display: none;
+
+        }
+          
+      }
+      @media screen and (max-width: 460px) {
+        .hero_curve {
+            display: none;
+            width:0% !important;
+            margin-top: -30px !important;
+            height: 0% !important;
+          }  
+      }
+      .hero-curve {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+        z-index: 2;
+      }
+      
+      .hero-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
+        text-align: center;
+        z-index: 3;
+      }
+      .hero-content h1 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        font-weight: 700;
+      }
+      .hero-content p {
+        font-size: 1.25rem;
+        margin-bottom: 20px;
+      }
+      .hero-content .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #ff5733;
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 30px;
+        font-family: Poppins, sans-serif;
+        font-size: 1rem;
+        transition: background-color 0.3s;
+      }
+      .hero-content .btn:hover {
+        background-color: #ff5733;
+      }
+      .hero-content .btn1 {
+        display: flex;
+        width: 18rem;
+        height: 50px;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        border-color: #ff5733;
+        font-family: Poppins, sans-serif;
+        font-size: 1rem;
+        border-radius: 30px;
+      }
+      .hero-content .btn1:hover {
+        background-color: #ff5733;
+      }
+      .hero-content .btn1 img {
+        width: 20px;
+        height: 20px;
+      }
+      
+        
+    
+
+    .image-cards-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px; /* Adjust spacing between cards */
+      }
+      
+      .image-card {
+        flex: 1;
+        width:300px;
+        height:500px; /* Cards will take equal width */
+        border-radius: 10px;
+        color: white; /* White text for readability */
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease; /* Smooth hover effect */
+      }
+      
+      .image-card:hover {
+        transform: scale(1.05); /* Slightly enlarge card on hover */
+      }
+      
+      .left-card {
+        background: linear-gradient(135deg, #6a11cb, #2575fc); /* Gradient from purple to blue */
+      }
+      
+      .large-card {
+        background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Gradient from red-orange to yellow */
+      }
+      
+      .right-card {
+        background: linear-gradient(135deg, #00bcd4, #8e44ad); /* Gradient from turquoise to purple */
+      }
+      
+      .card-content {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .card-content h4 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        font-weight: 600;
+      }
+      
+      .card-content ul {
+        list-style: none; /* Remove default list styles */
+        padding-left: 0;
+      }
+      
+      .card-content li {
+        margin-bottom: 15px; /* Space between items */
+        display: flex;
+        align-items: center;
+      }
+      
+      .check-icon {
+        color: #ffffff; /* White color for checkmark */
+        font-size: 15px;
+        font-family: Poppins; /* Adjust the size of checkmark */
+        margin-right: 5px;
+      }
+      @media screen and (max-width: 768px) {
+        .image-card {
+          width: 300px; /* Take up full width on smaller screens */
+          height: auto; /* Allow height to adjust based on content */
+        }
+      
+        .image-cards-container {
+          flex-direction: column; /* Stack cards vertically */
+          gap: 10px; /* Reduced gap between cards */
+        }
+      }
+      @media screen and (max-width: 480px) {
+        .card-content h4 {
+          font-size: 1.25rem; /* Smaller font size for heading */
+        }
+      
+        .check-icon {
+          font-size: 18px;
+          font-family:Poppins,sans-serif /* Slightly smaller checkmark */
+        }
+      
+        .image-card {
+            margin:5px;
+          padding: 15px; /* Reduced padding on smaller screens */
+        }
+      }
+      .card-divider {
+        border: 0;
+        border-top: 2px solid #ffffff; /* White line with a thickness of 2px */
+        width: 100%; /* Make the line span the full width of the card content */
+      }
+      
+      /* Media Query adjustments */
+      @media screen and (max-width: 768px) {
+        .card-divider {
+          width: 80%; /* Make the line a bit shorter on smaller screens */
+          margin: 15px auto; /* Center the line on smaller screens */
+        }
+      }
+      
+      @media screen and (max-width: 480px) {
+        .card-divider {
+          width: 70%; /* Further reduce the line width on very small screens */
+        }
+      }
+
+
+    @keyframes zoomBackground{0%,100%{background-size:100%}50%{background-size:110%}}.hero_flex{background-color:#2a2a2a!important}.feature-card,.features{background-color:#fff}.feature-card{border-radius:20px!important;border-width:'2px'!important;transition:transform .3s}.feature-card:hover{transform:scale(1.05);border:none!important}.contact,.testimonials{background-color:#1f1f1f}.testimonial{display:flex;background-color:#0ff;border-radius:2px!important;font-style:italic}.owner{font-weight:700;color:#1f1f1f}.name::placeholder{color:#fff!important}.email::placeholder{color:#fff!important}.footer{background-color:#2a2a2a}.image-cards-container{position:relative;display:flex;gap:20px}.image-card{position:relative;overflow:hidden;border:5px solid #fff;transition:transform .3s ease-in-out}.image-card:hover,.large-card,.small-card{box-shadow:0 5px 15px rgba(49,8,231,.737)}
+    @media screen and (max-width:768px){
+        .contact{padding-left:10px;padding-right:10px}
+        .hero{height:auto;width:100%;padding:20px;margin-top:50px;background-image:url("../assets/hrms-min.jpg");background-size:cover;background-repeat:no-repeat;background-position:center;text-shadow:0 0 10px rgba(0,0,0,.7);animation:5s infinite zoomBackground}}
+        
+ .footer {
+            color: rgb(216, 216, 208);
+            font-family: Poppins, sans-serif;
+            background-color: #1f1f1d;
+            padding: 20px;
+            width: 100%;
+          }
+          .row-footer{
+            display: flex;
+            column-gap: 10px;
+            justify-content: space-between;
+            flex-direction: row;
+          }
+          
+          .footer .social-icons a {
+            margin-right: 15px;
+          }
+          
+          .footer .social-icons a:hover {
+            color: #ff4081;
+          }
+           .contact-btn{
+            display: flex !important;
+            width: 15rem !important;
+            height: 50px !important;
+            flex-direction: row !important;
+            background-color: #ff5733 !important;
+            justify-content: space-evenly !important;
+            align-self: stretch !important;
+            padding: 0px !important;
+            align-items: center !important;
+            border-color: #ff5733 !important;
+            font-family: Poppins, sans-serif !important;
+            font-size: small !important;
+            border-radius: 30px !important;
+          }
+           .contact-btn:hover {
+            color: #fff;
+            background-color: #ff5733 !important;
+
+          }
+          .contact-btn2{
+            display: flex !important;
+            width: 15rem !important;
+            height: 50px !important;
+            flex-direction: row !important;
+            justify-content: space-evenly !important;
+            align-self: stretch !important;
+            padding: 0px !important;
+            background-color: transparent !important;
+            align-items: center !important;
+            border-width: 2px !important;
+            border-color: green !important;
+            background-color: green !important;
+            font-family: Poppins, sans-serif !important;
+            font-size: small !important;
+            border-radius: 30px !important;
+          }
+          
+          .contact-btn3{
+            display: flex !important;
+            height: 50px !important;
+            flex-direction: row !important;
+            justify-content: space-evenly !important;
+            align-self: stretch !important;
+            padding: 0px !important;
+            background-color: transparent !important;
+            align-items: center !important;
+            border-width: 2px !important;
+            border-color: #ff5733 !important;
+            background-color: #ff5733 !important;
+
+            font-family: Poppins, sans-serif !important;
+            font-size: small !important;
+            border-radius: 30px !important;
+          }
+          
+          
+          .footer h5 {
+            font-size: 1.2rem;
+            text-decoration: underline;
+            font-family: Poppins, sans-serif;
+            margin-bottom: 1rem;
+          }
+          
+          .footer p {
+            font-size: 0.9rem;
+          } 
+
+          .footer-links a {
+            text-decoration: none;
+            font-size: smaller; /* No underline by default */
+            color: white; /* White text color */
+            transition: color 0.3s, text-decoration 0.3s; /* Smooth hover transition */
+          }
+          
+          .footer-links a:hover {
+            text-decoration: underline;
+            color:#ff5733 /* Underline on hover */
+          }
+          .modal-div{
+            background-color: azure;
+            max-height: 300px;
+          }
+          /* Gradient backgrounds for cards */
+
+
+          

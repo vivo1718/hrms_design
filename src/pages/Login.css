@@ -5,7 +5,7 @@
     width: 105%;
     align-items: center;
     background-color: #e6fcef;
-    background-image: url('../assets/login.jpg');
+    background-image: url('../assets/login-min.jpg');
     padding-top: 20px;
     background-size: cover;
   animation: backgroundShift 30s infinite alternate;

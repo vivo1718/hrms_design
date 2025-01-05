@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Sidebar2 from './components/Sidebar2';
 import Dashboard from './pages/Dashboard';
 import Employees from './pages/Employees';
-import Departments from './pages/Departments';
 import Attendance from './pages/Attendance';
 import Leaves from './pages/Leaves';
 import  Payroll from './pages/Payroll';
@@ -41,7 +40,6 @@ function App() {
                   <Route path="/register" element={<Register />} />
                   <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/employees" element={<Employees />} />
-                  <Route path="/departments" element={<Departments />} />
                   <Route path="/attendance" element={<Attendance />} />
                   <Route path="/leaves" element={<Leaves />} />
                   <Route path="/payroll" element={<Payroll />} />
