@@ -35,6 +35,7 @@ function App() {
               <FloatingButtonMenu />
               <div className="container">
                 <Routes>
+
                   <Route path="/login" element={<Login />} />
                   <Route path="/login_with_otp" element={<LoginOtp />} />
                   <Route path="/register" element={<Register />} />
