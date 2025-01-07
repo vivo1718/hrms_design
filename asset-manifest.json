@@ -1,28 +1,28 @@
 {
   "files": {
-    "main.css": "/hrms_design/static/css/main.b17f9a31.css",
-    "main.js": "/hrms_design/static/js/main.88517c46.js",
-    "static/js/239.648f4267.chunk.js": "/hrms_design/static/js/239.648f4267.chunk.js",
-    "static/js/213.1ad99031.chunk.js": "/hrms_design/static/js/213.1ad99031.chunk.js",
-    "static/js/732.6655e27f.chunk.js": "/hrms_design/static/js/732.6655e27f.chunk.js",
-    "static/js/453.16b2488d.chunk.js": "/hrms_design/static/js/453.16b2488d.chunk.js",
-    "static/media/man.jpg": "/hrms_design/static/media/man.c88b4caaabb3f0d362d6.jpg",
-    "static/media/login-min.jpg": "/hrms_design/static/media/login-min.492a7a271cbdb09f6b0b.jpg",
-    "static/media/hrms-min.jpg": "/hrms_design/static/media/hrms-min.370b659d060ef03764d2.jpg",
-    "static/media/register.jpg": "/hrms_design/static/media/register.7678fdd2f2375bf4639b.jpg",
-    "static/media/back.jpg": "/hrms_design/static/media/back.3a60e716c642116efae3.jpg",
-    "static/media/outdoor.png": "/hrms_design/static/media/outdoor.cd6c6e540a7f9b0e557d.png",
-    "static/media/loads3.svg": "/hrms_design/static/media/loads3.75fe35d69b16c863491992158e32d629.svg",
-    "index.html": "/hrms_design/index.html",
-    "main.b17f9a31.css.map": "/hrms_design/static/css/main.b17f9a31.css.map",
-    "main.88517c46.js.map": "/hrms_design/static/js/main.88517c46.js.map",
-    "239.648f4267.chunk.js.map": "/hrms_design/static/js/239.648f4267.chunk.js.map",
-    "213.1ad99031.chunk.js.map": "/hrms_design/static/js/213.1ad99031.chunk.js.map",
-    "732.6655e27f.chunk.js.map": "/hrms_design/static/js/732.6655e27f.chunk.js.map",
-    "453.16b2488d.chunk.js.map": "/hrms_design/static/js/453.16b2488d.chunk.js.map"
+    "main.css": "/static/css/main.c2636dcd.css",
+    "main.js": "/static/js/main.b00654a9.js",
+    "static/js/239.648f4267.chunk.js": "/static/js/239.648f4267.chunk.js",
+    "static/js/213.1ad99031.chunk.js": "/static/js/213.1ad99031.chunk.js",
+    "static/js/732.6655e27f.chunk.js": "/static/js/732.6655e27f.chunk.js",
+    "static/js/453.16b2488d.chunk.js": "/static/js/453.16b2488d.chunk.js",
+    "static/media/man.jpg": "/static/media/man.c88b4caaabb3f0d362d6.jpg",
+    "static/media/login-min.jpg": "/static/media/login-min.492a7a271cbdb09f6b0b.jpg",
+    "static/media/hrms-min.jpg": "/static/media/hrms-min.370b659d060ef03764d2.jpg",
+    "static/media/register.jpg": "/static/media/register.7678fdd2f2375bf4639b.jpg",
+    "static/media/back.jpg": "/static/media/back.3a60e716c642116efae3.jpg",
+    "static/media/outdoor.png": "/static/media/outdoor.cd6c6e540a7f9b0e557d.png",
+    "static/media/loads3.svg": "/static/media/loads3.75fe35d69b16c863491992158e32d629.svg",
+    "index.html": "/index.html",
+    "main.c2636dcd.css.map": "/static/css/main.c2636dcd.css.map",
+    "main.b00654a9.js.map": "/static/js/main.b00654a9.js.map",
+    "239.648f4267.chunk.js.map": "/static/js/239.648f4267.chunk.js.map",
+    "213.1ad99031.chunk.js.map": "/static/js/213.1ad99031.chunk.js.map",
+    "732.6655e27f.chunk.js.map": "/static/js/732.6655e27f.chunk.js.map",
+    "453.16b2488d.chunk.js.map": "/static/js/453.16b2488d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.b17f9a31.css",
-    "static/js/main.88517c46.js"
+    "static/css/main.c2636dcd.css",
+    "static/js/main.b00654a9.js"
   ]
 }
