@@ -3,7 +3,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Card, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faServer, faUserFriends, faBuilding, faClipboardUser, faArrowRightToBracket, faPersonWalking, faToolbox, faQuestion } from '@fortawesome/free-solid-svg-icons';
+import { faServer, faUserFriends, faBuilding, faClipboardUser, faArrowRightToBracket, faPersonWalking, faToolbox, faQuestion, faBackwardStep, faBackward, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import './Sidebar2.css';
 import { useNavigate } from 'react-router-dom';
 const Sidebar2 = () => {
@@ -16,11 +16,15 @@ const Sidebar2 = () => {
   const handleChat = () => { 
     navigate('/chat');
    }
+   const backHome = () => { 
+    navigate('/');
+   }
 
 
   return (
     <div className="bg text-white vh-100 d-flex flex-column p-2">
-      <div className="title_set">
+      <div className="d-flex flex-row justify-content-center title_set">
+        <FontAwesomeIcon  className='me-3' icon={faChevronLeft} onClick={backHome} ></FontAwesomeIcon>
         <div className="title_setl">
           <h3 className="text-title mb-4">HRMS</h3>
         </div>

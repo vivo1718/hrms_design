@@ -183,7 +183,8 @@ const LandingPage = () => {
   useEffect(() => {
     // Initialize AOS when the component mounts
     AOS.init({
-      duration: 1000, // Animation duration in milliseconds
+      duration: 1000,
+      easing:'ease-in-out', // Animation duration in milliseconds
       once: true, // Ensures the animation occurs only once when it scrolls into view
     });
   }, []);
@@ -200,7 +201,7 @@ const LandingPage = () => {
         variant="dark"
         fixed="top"
       >
-        <Navbar.Brand style={{ fontWeight: "bold" ,fontFamily:'Poppins'}} href="#">
+        <Navbar.Brand style={{ fontWeight: "bold" ,fontFamily:'Poppins'}} href="/">
           ADSOFT
         </Navbar.Brand>
         <Navbar.Toggle
@@ -219,36 +220,35 @@ const LandingPage = () => {
               className={location.hash === "#features" ? "active" : ""}
               style={{ color: "#fffc" }}
             >
-              Features <FontAwesomeIcon icon={faChevronDown}></FontAwesomeIcon>
+              Features 
             </Nav.Link>
             <Nav.Link
               href="#showcase"
               className={location.hash === "#showcase" ? "active" : ""}
               style={{ color: "#fffc" }}
             >
-              Showcase <FontAwesomeIcon icon={faChevronDown}></FontAwesomeIcon>
+              Showcase 
             </Nav.Link>
             <Nav.Link
               href="#services"
               className={location.hash === "#services" ? "active" : ""}
               style={{ color: "#fffc" }}
             >
-              Services <FontAwesomeIcon icon={faChevronDown}></FontAwesomeIcon>
+              Services 
             </Nav.Link>
             <Nav.Link
               href="#testimonials"
               className={location.hash === "#testimonials" ? "active" : ""}
               style={{ color: "#fffc" }}
             >
-              Testimonials{" "}
-              <FontAwesomeIcon size="sm" icon={faChevronDown}></FontAwesomeIcon>
+              Testimonials
             </Nav.Link>
             <Nav.Link
               href="#contact"
               className={location.hash === "#contact" ? "active" : ""}
               style={{ color: "#fffc" }}
             >
-              Contact <FontAwesomeIcon icon={faChevronDown}></FontAwesomeIcon>
+              Contact 
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
@@ -266,15 +266,15 @@ const LandingPage = () => {
             cutting-edge technology.
           </p>
           <Button className="contact-btn2" onClick={handlehrms}>
-            <div style={{ width: "100%" }}>Get started</div>
+            <div style={{ width: "100%", fontWeight:'bold' }}>Get Demo</div>
             <div
               className="d-flex justify-content-center align-items-center m-1"
               style={{
                 backgroundColor: "#ffc",
                 color: "#1f1f1f",
-                height: "40px",
+                height: "50px",
                 borderRadius: "20px",
-                width: "50%",
+                width: "60%",
               }}
             >
               <FontAwesomeIcon size="1x" icon={faArrowRight}></FontAwesomeIcon>
@@ -313,7 +313,7 @@ const LandingPage = () => {
             <div className="col-md-4 text-center">
               <div
                 className="feature-card p-4"
-                data-aos="fade-left"
+                data-aos="fade-up"
                 data-aos-delay="200"
               >
                 <img className="mb-2" src={image9} loading="lazy"></img>
@@ -334,8 +334,8 @@ const LandingPage = () => {
             >
               <div
                 className="feature-card p-4 "
-                data-aos="fade-left"
-                data-aos-delay="400"
+                data-aos="fade-up"
+                data-aos-delay="200"
               >
                 <img className="mb-2" loading="lazy" src={image10}></img>
                 <h6 style={{ color: "#1f1f1f" }}>Payroll Management</h6>
@@ -348,8 +348,8 @@ const LandingPage = () => {
             <div className="col-md-4 text-center">
               <div
                 className="feature-card p-4"
-                data-aos="fade-left"
-                data-aos-delay="600"
+                data-aos="fade-up"
+                data-aos-delay="200"
               >
                 <img className="mb-2" src={image11} loading="lazy"></img>
                 <h6 style={{ color: "#1f1f1f" }}>Analytics & Reports</h6>
@@ -379,7 +379,7 @@ const LandingPage = () => {
               {/* Left Card: Comprehensive HR Management */}
               <div
                 className="image-card small-card left-card"
-                data-aos="fade-left"
+                data-aos="fade-up"
                 data-aos-delay="200"
               >
                 <div className="card-content">
@@ -416,8 +416,8 @@ const LandingPage = () => {
               {/* Large Card: User-Friendly Interface */}
               <div
                 className="image-card large-card"
-                data-aos="fade-left"
-                data-aos-delay="400"
+                data-aos="fade-up"
+                data-aos-delay="200"
               >
                 <div className="card-content">
                   <h4>User-Friendly Interface</h4>
@@ -452,8 +452,8 @@ const LandingPage = () => {
               {/* Right Card: Advanced Analytics & Reporting */}
               <div
                 className="image-card small-card right-card"
-                data-aos="fade-left"
-                data-aos-delay="600"
+                data-aos="fade-up"
+                data-aos-delay="200"
               >
                 <div className="card-content">
                   <h4>Advanced Analytics & Reporting</h4>
@@ -488,7 +488,7 @@ const LandingPage = () => {
           </div>
 
           <p
-            data-aos="fade-left"
+            data-aos="fade-up"
             data-aos-delay="200"
             style={{
               color: "#E0E0E0",
@@ -507,11 +507,13 @@ const LandingPage = () => {
           <h2 className="text-center mb-4">Our Services</h2>
           <div className="row g-4">
             {services.map((service, index) => (
-              <div className="col-lg-3 col-md-6 " key={index}>
+              <div className="col-lg-3 col-md-6 " key={index}   style={{borderRadius:'0px'}}
+              >
                 <div
-                  className="feature-card d-flex flex-column justify-content-center align-items-center p-4"
-                  data-aos="fade-left"
+                  className="feature-card2 d-flex flex-column justify-content-center align-items-center p-4"
+                  data-aos="fade-up"
                   data-aos-delay="200"
+                  style={{borderRadius:'0px'}}
                 >
                   <img
                     className="mb-2"
@@ -543,7 +545,7 @@ const LandingPage = () => {
             }}
           >
             <div
-              data-aos="fade-left"
+              data-aos="fade-up"
               data-aos-delay="200"
               className="col-md-4 mb-2"
               style={{
@@ -562,8 +564,8 @@ const LandingPage = () => {
               </div>
             </div>
             <div
-              data-aos="fade-left"
-              data-aos-delay="400"
+              data-aos="fade-up"
+              data-aos-delay="200"
               className="col-md-4 mb-2"
               style={{
                 border: "1px solid #1f1f1f",
@@ -580,8 +582,8 @@ const LandingPage = () => {
               </div>
             </div>
             <div
-              data-aos="fade-left"
-              data-aos-delay="600"
+              data-aos="fade-up"
+              data-aos-delay="200"
               className="col-md-4 mb-2"
               style={{
                 border: "1px solid #1f1f1f",
@@ -604,13 +606,13 @@ const LandingPage = () => {
           <Col md={3} sm={6} className="mb-4 ">
             <h5>Contact Us</h5>
             <p>
-              <strong>Phone:</strong> +123 456 7890
+              <strong>Phone:</strong> +91 6290301855
             </p>
             <p>
-              <strong>Email:</strong> support@yourcompany.com
+              <strong>Email:</strong> omtiwarimaa92@gmail.com
             </p>
             <p>
-              <strong>Address:</strong> 123 Main Street, City, Country
+              <strong>Address:</strong> 102/6/A HCB LANE KONNAGAR, HOOGHLY
             </p>
             <Button className="contact-btn" onClick={handleShow}>
               <div style={{ width: "100%" }}>Contact Form</div>
@@ -619,9 +621,9 @@ const LandingPage = () => {
                 style={{
                   backgroundColor: "#ffc",
                   color: "#1f1f1f",
-                  height: "40px",
+                  height: "50px",
                   borderRadius: "20px",
-                  width: "50%",
+                  width: "60%",
                 }}
               >
                 <FontAwesomeIcon
@@ -700,7 +702,7 @@ const LandingPage = () => {
 
         <Row
           className="mt-4"
-          style={{ backgroundColor: "#ffc", height: "100%" }}
+          style={{  height: "100%" }}
         >
           <Col className="text-center">
             <p className="mb-0">© 2025 ADSOFT. All rights reserved.</p>

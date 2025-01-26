@@ -92,7 +92,7 @@ function Dashboard() {
         } else {
           //setLoading(true);
           setUserDetails(null);
-          console.log("User not logged in");
+          console.log("User not loggged in");
         }
       } catch (error) {
         console.log("Error fetching user data", error);

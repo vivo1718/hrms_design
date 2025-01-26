@@ -35,8 +35,8 @@ function App() {
               <FloatingButtonMenu />
               <div className="container">
                 <Routes>
-
-                  <Route path="/login" element={<Login />} />
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/login" element={<Login />} />
                   <Route path="/login_with_otp" element={<LoginOtp />} />
                   <Route path="/register" element={<Register />} />
                   <Route path="/dashboard" element={<Dashboard />} />
@@ -47,6 +47,7 @@ function App() {
                   <Route path="/setting" element={<Setting />} />
                   <Route path="/chat" element={<Chat />} />
                   <Route path="/employee_details/:id" element={<EmployeeDescription />} />
+
                 </Routes>
               </div>
             </div>

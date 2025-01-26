@@ -1,4 +1,4 @@
-.nav-link{position:relative;color:#fffc;text-decoration:none;transition:color .3s}
+.nav-link{position:relative;color:#ffc;text-decoration:none;transition:color .3s;font-size: small;}
 .nav-link.active{font-weight:700;background-color:#ff583352;font-size:small;color:#fff}
 .nav-link.active::after,.nav-link::after{content:'';position:absolute;left:0;bottom:-4px;height:1px;background-color:#ff5733;transition:width .3s}
 .nav-link.active::after,.nav-link:hover::after{width:100%}
@@ -12,7 +12,6 @@
 .btn1:hover{background-color:#12a059!important}.container1{background-color:none!important;justify-content:center;align-items:center}
 .hero{height:100vh;width:100%;background-image:url("../assets/hrms-min.jpg");background-size:cover;background-repeat:no-repeat;
   
-
     background-position:center;
 
     text-shadow:0 0 10px rgba(0,0,0,.7);animation:5s infinite zoomBackground}
@@ -114,10 +113,8 @@
         flex: 1;
         width:300px;
         height:500px; /* Cards will take equal width */
-        border-radius: 10px;
         color: white; /* White text for readability */
         padding: 20px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s ease; /* Smooth hover effect */
       }
       
@@ -169,7 +166,7 @@
       @media screen and (max-width: 768px) {
         .image-card {
           width: 300px; /* Take up full width on smaller screens */
-          height: auto; /* Allow height to adjust based on content */
+          height: 500px; /* Allow height to adjust based on content */
         }
       
         .image-cards-container {
@@ -242,7 +239,7 @@
            .contact-btn{
             display: flex !important;
             width: 15rem !important;
-            height: 50px !important;
+            height: 60px !important;
             flex-direction: row !important;
             background-color: #ff5733 !important;
             justify-content: space-evenly !important;
@@ -252,7 +249,7 @@
             border-color: #ff5733 !important;
             font-family: Poppins, sans-serif !important;
             font-size: small !important;
-            border-radius: 30px !important;
+            border-radius: 20px !important;
           }
            .contact-btn:hover {
             color: #fff;
@@ -262,7 +259,7 @@
           .contact-btn2{
             display: flex !important;
             width: 15rem !important;
-            height: 50px !important;
+            height: 60px !important;
             flex-direction: row !important;
             justify-content: space-evenly !important;
             align-self: stretch !important;
@@ -274,7 +271,7 @@
             background-color: green !important;
             font-family: Poppins, sans-serif !important;
             font-size: small !important;
-            border-radius: 30px !important;
+            border-radius: 20px !important;
           }
           
           .contact-btn3{
@@ -322,7 +319,27 @@
             background-color: azure;
             max-height: 300px;
           }
+          .feature-card{
+            border-radius: 0px !important;
+            box-shadow:0 5px 15px rgba(49,8,231,.737) !important;
+          }
+          .feature-card:hover{
+            border-radius: 0px !important;
+            box-shadow:0 5px 15px rgba(49,8,231,.737) !important;
+            background-color: #ffc;
+          }
           /* Gradient backgrounds for cards */
-
+          .feature-card2{
+            border-radius: 0px !important;
+            background-color: #fff;
+            box-shadow:0 5px 15px rgba(49,8,231,.737) !important;
+          }
+          .feature-card2:hover{
+            border-radius: 0px !important;
+            box-shadow:0 5px 15px rgba(49,8,231,.737) !important;
+            background-color: #ffc;
+          }
+          
+          
 
           
