@@ -210,7 +210,11 @@
       }
 
 
-    @keyframes zoomBackground{0%,100%{background-size:100%}50%{background-size:110%}}.hero_flex{background-color:#2a2a2a!important}.feature-card,.features{background-color:#fff}.feature-card{border-radius:20px!important;border-width:'2px'!important;transition:transform .3s}.feature-card:hover{transform:scale(1.05);border:none!important}.contact,.testimonials{background-color:#1f1f1f}.testimonial{display:flex;background-color:#0ff;border-radius:2px!important;font-style:italic}.owner{font-weight:700;color:#1f1f1f}.name::placeholder{color:#fff!important}.email::placeholder{color:#fff!important}.footer{background-color:#2a2a2a}.image-cards-container{position:relative;display:flex;gap:20px}.image-card{position:relative;overflow:hidden;border:5px solid #fff;transition:transform .3s ease-in-out}.image-card:hover,.large-card,.small-card{box-shadow:0 5px 15px rgba(49,8,231,.737)}
+    @keyframes zoomBackground{0%,100%{background-size:100%}50%{background-size:110%}}.hero_flex{background-color:#2a2a2a!important}.feature-card,.features{background-color:#fff}.feature-card{border-radius:20px!important;border-width:'2px'!important;transition:transform .3s}.feature-card:hover{transform:scale(1.05);border:none!important}.contact,
+    .testimonials{
+      background-color:#1f1f1f;
+    }
+    .testimonial{display:flex;background-color:#0ff;border-radius:2px!important;font-style:italic}.owner{font-weight:700;color:#1f1f1f}.name::placeholder{color:#fff!important}.email::placeholder{color:#fff!important}.footer{background-color:#2a2a2a}.image-cards-container{position:relative;display:flex;gap:20px}.image-card{position:relative;overflow:hidden;border:5px solid #fff;transition:transform .3s ease-in-out}.image-card:hover,.large-card,.small-card{box-shadow:0 5px 15px rgba(49,8,231,.737)}
     @media screen and (max-width:768px){
         .contact{padding-left:10px;padding-right:10px}
         .hero{height:auto;width:100%;padding:20px;margin-top:50px;background-image:url("../assets/hrms-min.jpg");background-size:cover;background-repeat:no-repeat;background-position:center;text-shadow:0 0 10px rgba(0,0,0,.7);animation:5s infinite zoomBackground}}
